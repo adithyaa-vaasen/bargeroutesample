@@ -213,6 +213,12 @@
       const playSpeed = document.getElementById('playSpeed');
       const bargeFilter = document.getElementById('bargeFilter');
 
+      // Check if all elements exist
+      if (!timeSlider || !playPauseBtn || !playSpeed || !bargeFilter) {
+        console.error('One or more control elements not found');
+        return;
+      }
+
       timeSlider.min = 0;
       timeSlider.max = uniqueTimes.length - 1;
       timeSlider.value = 0;
