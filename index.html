@@ -62,7 +62,7 @@
     const colors = ['#E74C3C', '#5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
 
     // Fetch and process data
-    fetch('/data/barge_data.json')
+    fetch('/barge_data.json')
       .then(response => {
         if (!response.ok) throw new Error('Failed to load barge_data.json');
         return response.json();
