@@ -98,8 +98,15 @@
         .filter(d => d.Latitude !== 0 && d.Longitude !== 0 && d.Latitude != null && d.Longitude != null)
         .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
 
-      // Get unique times
+      // Get unique times and add one more timestamp at the end for cleanup
       uniqueTimes = [...new Set(processedData.map(d => d.Timestamp))].sort();
+      
+      // Add a timestamp 1 day after the last timestamp so barges can disappear
+      if (uniqueTimes.length > 0) {
+        const lastTime = new Date(uniqueTimes[uniqueTimes.length - 1]);
+        lastTime.setDate(lastTime.getDate() + 1);
+        uniqueTimes.push(lastTime.toISOString());
+      }
       
       // Get unique barges
       const barges = [...new Set(processedData.map(d => d['Barge Name']))].sort();
