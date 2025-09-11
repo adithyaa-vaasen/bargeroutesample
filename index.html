@@ -79,6 +79,18 @@
     let currentTimeIndex = 0;
     let animationTimeout;
 
+
+
+    // Custom arrow icon function
+    function createArrowIcon(color, rotation = 0) {
+      return L.divIcon({
+        className: "ship-icon",
+        html: `<div style="font-size: 20px; transform: rotate(${rotation}deg); transform-origin: center center; color: ${color}; display: inline-block;">➤</div>`,
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+      });
+    }
+    
     function loadData() {
       // Try to fetch actual data, fall back to sample data
       return fetch('/barge_data.json')
@@ -138,13 +150,8 @@
 
       // Initialize markers and paths for each barge
       barges.forEach(barge => {
-        bargeMarkers[barge] = L.circleMarker([0, 0], {
-          fillColor: colorDict[barge],
-          fillOpacity: 0.8,
-          stroke: true,
-          color: 'black',
-          weight: 2,
-          radius: 8
+        bargeMarkers[barge] = L.marker([0, 0], {
+          icon: createArrowIcon(colorDict[barge])
         }).addTo(map);
 
         bargePaths[barge] = L.polyline([], {
