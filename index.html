@@ -40,9 +40,14 @@
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
-  <script src="https://unpkg.com/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.2/dist/leaflet.timedimension.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.min.js"></script>
   <script>
+    // Log library loading
+    console.log('Leaflet loaded:', typeof L !== 'undefined');
+    console.log('Leaflet.TimeDimension loaded:', typeof L.timeDimension !== 'undefined');
+    console.log('Leaflet.PolylineDecorator loaded:', typeof L.polylineDecorator !== 'undefined');
+
     // Initialize map
     const map = L.map('map', {
       zoomControl: false,
@@ -64,10 +69,19 @@
     // Fetch and process data
     fetch('/barge_data.json')
       .then(response => {
-        if (!response.ok) throw new Error('Failed to load barge_data.json');
+        console.log('Fetch response status:', response.status, response.statusText);
+        if (!response.ok) {
+          throw new Error(`Failed to load barge_data.json: ${response.status} ${response.statusText}`);
+        }
         return response.json();
       })
       .then(data => {
+        console.log('Fetched data:', data);
+        if (!data || !Array.isArray(data) || data.length === 0) {
+          console.error('No valid data in barge_data.json');
+          return;
+        }
+
         // Convert timestamps to ISO format
         data.forEach(d => {
           d.Timestamp = new Date(d.Timestamp).toISOString();
@@ -228,7 +242,7 @@
         const currentTimeDisplay = document.getElementById('currentTime');
 
         let isPlaying = false;
-        let times = [...new Set(data.map(d => new Date(d.Timestamp).getTime()))].sort();
+        let times = [...new Set(data.map(d => d['Barge Name']))].sort();
         timeSlider.min = 0;
         timeSlider.max = times.length - 1;
         timeSlider.value = 0;
@@ -285,7 +299,10 @@
         isPlaying = true;
         playPauseBtn.textContent = '⏸ Pause';
       })
-      .catch(error => console.error('Error loading data:', error));
+      .catch(error => {
+        console.error('Error loading data:', error);
+        alert('Failed to load barge data. Check console for details.');
+      });
   </script>
 </body>
 </html>
