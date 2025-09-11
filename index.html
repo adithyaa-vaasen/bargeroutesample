@@ -173,7 +173,7 @@
       return { processedData, barges, colorDict };
     }
 
-    function updateMapForTime(timeIndex) {
+        function updateMapForTime(timeIndex) {
       const currentTime = uniqueTimes[timeIndex];
       const currentTimeData = currentData.filter(d => d.Timestamp === currentTime);
 
@@ -203,7 +203,7 @@
         const lastDataPoint = allBargeData[allBargeData.length - 1];
         const hasPassedLastDataPoint = lastDataPoint && new Date(currentTime) > new Date(lastDataPoint.Timestamp);
         
-        if (bargeDataUpToNow.length > 0 && !hasPassedLastDataPoint && (selectedBarge === 'all' || selectedBarge === barge)) {
+        if (shouldShowBarge) {
           // Show barge at its most recent known position
           const mostRecentPosition = bargeDataUpToNow[bargeDataUpToNow.length - 1];
           marker.setLatLng([mostRecentPosition.Latitude, mostRecentPosition.Longitude]);
