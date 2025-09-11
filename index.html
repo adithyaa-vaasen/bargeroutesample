@@ -5,13 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Barge Schedule Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.control.css" />
   <style>
     body { margin: 0; font-family: Arial, sans-serif; }
     #map { height: 85vh; }
-    .leaflet-control-timecontrol { z-index: 1000; }
-    .start-icon { font-size: 20px; color: green; }
-    .end-icon { font-size: 20px; transform-origin: center center; }
     .tooltip { background: white; border: 1px solid #ccc; border-radius: 4px; padding: 5px; }
     .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #f5f5f5; border-bottom: 1px solid #ccc; }
     .controls { padding: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
@@ -48,22 +44,15 @@
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
   <script>
-    // Your actual barge data will be loaded from the JSON file
+    // Sample data for demo
     const sampleData = [];
 
     // Initialize map
-    const map = L.map('map', {
-      zoomControl: false
-    });
-
-    // Add base layer
+    const map = L.map('map', { zoomControl: false });
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
     }).addTo(map);
-
-    // Move zoom control to top-right
     L.control.zoom({ position: 'topright' }).addTo(map);
 
     // Colors for barges
@@ -80,7 +69,6 @@
     let selectedBarge = 'all';
 
     function loadData() {
-      // Try to fetch actual data, fall back to sample data
       return fetch('/barge_data.json')
         .then(response => {
           if (!response.ok) {
@@ -161,7 +149,6 @@
             iconAnchor: [8, 5]
           })
         });
-        // Don't add to map initially
 
         bargePaths[barge] = L.polyline([], {
           color: colorDict[barge],
@@ -175,35 +162,44 @@
 
     function updateMapForTime(timeIndex) {
       const currentTime = uniqueTimes[timeIndex];
-      const currentTimeData = currentData.filter(d => d.Timestamp === currentTime);
 
-      // Hide all markers and paths first
+      // For each barge, determine if it should be visible and where
       Object.keys(bargeMarkers).forEach(barge => {
-        map.removeLayer(bargeMarkers[barge]);
-        if (selectedBarge !== 'all' && selectedBarge !== barge) {
-          bargePaths[barge].setStyle({ opacity: 0 });
-        } else {
-          bargePaths[barge].setStyle({ opacity: 0.6 });
-        }
-      });
-
-      // Update markers for current time
-      currentTimeData.forEach(point => {
-        const barge = point['Barge Name'];
         const marker = bargeMarkers[barge];
         
-        if (marker && (selectedBarge === 'all' || selectedBarge === barge)) {
-          marker.setLatLng([point.Latitude, point.Longitude]);
+        // Get all data for this barge up to current time
+        const bargeDataUpToNow = currentData
+          .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= new Date(currentTime))
+          .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+        
+        // Get all data for this barge to find last data point
+        const allBargeData = currentData
+          .filter(d => d['Barge Name'] === barge)
+          .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+        
+        const lastDataPoint = allBargeData[allBargeData.length - 1];
+        const currentTimeDate = new Date(currentTime);
+        const lastDataDate = lastDataPoint ? new Date(lastDataPoint.Timestamp) : null;
+        
+        // Check if current time is beyond the last data point for this barge
+        const passedLastDataPoint = lastDataDate && currentTimeDate > lastDataDate;
+        
+        // Show or hide barge based on conditions
+        if (bargeDataUpToNow.length > 0 && !passedLastDataPoint && (selectedBarge === 'all' || selectedBarge === barge)) {
+          // Show barge at its most recent known position
+          const mostRecentPosition = bargeDataUpToNow[bargeDataUpToNow.length - 1];
+          marker.setLatLng([mostRecentPosition.Latitude, mostRecentPosition.Longitude]);
           marker.addTo(map);
-          marker.bindTooltip(`${barge}<br>Step: ${point['Schedule Step'] || 'N/A'}<br>Location: ${point.Location || 'N/A'}<br>Date: ${new Date(point.Timestamp).toLocaleDateString()}`, {
+          marker.bindTooltip(`${barge}<br>Step: ${mostRecentPosition['Schedule Step'] || 'N/A'}<br>Location: ${mostRecentPosition.Location || 'N/A'}<br>Date: ${new Date(mostRecentPosition.Timestamp).toLocaleDateString()}`, {
             direction: 'top',
             offset: [0, -10]
           });
+        } else {
+          // Hide barge
+          map.removeLayer(marker);
         }
-      });
 
-      // Update paths (show history up to current time)
-      Object.keys(bargePaths).forEach(barge => {
+        // Update path
         if (selectedBarge === 'all' || selectedBarge === barge) {
           const bargeHistory = currentData
             .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= new Date(currentTime))
@@ -211,6 +207,9 @@
           
           const pathCoords = bargeHistory.map(d => [d.Latitude, d.Longitude]);
           bargePaths[barge].setLatLngs(pathCoords);
+          bargePaths[barge].setStyle({ opacity: 0.6 });
+        } else {
+          bargePaths[barge].setStyle({ opacity: 0 });
         }
       });
 
@@ -225,7 +224,6 @@
       const playSpeed = document.getElementById('playSpeed');
       const bargeFilter = document.getElementById('bargeFilter');
 
-      // Check if all elements exist
       if (!timeSlider || !playPauseBtn || !playSpeed || !bargeFilter) {
         console.error('One or more control elements not found');
         return;
@@ -281,7 +279,6 @@
         const speed = parseInt(document.getElementById('playSpeed').value);
         animationTimeout = setTimeout(animate, speed);
       } else {
-        // Animation finished
         stopAnimation();
       }
     }
