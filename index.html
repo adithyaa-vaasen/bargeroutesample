@@ -160,7 +160,8 @@
             iconSize: [16, 10],
             iconAnchor: [8, 5]
           })
-        }).addTo(map);
+        });
+        // Don't add to map initially
 
         bargePaths[barge] = L.polyline([], {
           color: colorDict[barge],
