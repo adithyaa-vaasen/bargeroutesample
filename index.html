@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Barge Schedule Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.control.css" />
   <style>
     body { margin: 0; font-family: Arial, sans-serif; }
     #map { height: 85vh; }
@@ -13,8 +14,9 @@
     .end-icon { font-size: 20px; transform-origin: center center; }
     .tooltip { background: white; border: 1px solid #ccc; border-radius: 4px; padding: 5px; }
     .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #f5f5f5; border-bottom: 1px solid #ccc; }
-    .controls { padding: 10px; display: flex; gap: 10px; align-items: center; }
-    .legend { display: flex; gap: 15px; padding: 5px 10px; background: #f5f5f5; border-radius: 4px; font-size: 13px; }
+    .controls { padding: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .legend { display: flex; gap: 15px; padding: 5px 10px; background: #f5f5f5; border-radius: 4px; font-size: 13px; flex-wrap: wrap; }
+    .error-message { background: #ffebee; color: #c62828; padding: 10px; border-radius: 4px; margin: 10px; }
   </style>
 </head>
 <body>
@@ -27,32 +29,34 @@
     <label>
       Speed:
       <select id="playSpeed">
-        <option value="500">Slow</option>
-        <option value="250" selected>Normal</option>
-        <option value="100">Fast</option>
-        <option value="50">Very Fast</option>
+        <option value="1000">Slow</option>
+        <option value="500" selected>Normal</option>
+        <option value="250">Fast</option>
+        <option value="100">Very Fast</option>
       </select>
     </label>
     <input type="range" id="timeSlider" style="width: 300px;" />
-    <span id="currentTime" style="font-weight: bold;"></span>
+    <span id="currentTime" style="font-weight: bold;">Loading...</span>
     <div class="legend" id="legend"></div>
   </div>
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.2/dist/leaflet.timedimension.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
   <script>
-    // Log library loading
-    console.log('Leaflet loaded:', typeof L !== 'undefined');
-    console.log('Leaflet.TimeDimension loaded:', typeof L.timeDimension !== 'undefined');
-    console.log('Leaflet.PolylineDecorator loaded:', typeof L.polylineDecorator !== 'undefined');
+    // Sample data (replace this with your actual data loading)
+    const sampleData = [
+      { "Barge Name": "Barge A", "Timestamp": "2024-01-01T00:00:00Z", "Latitude": 40.7128, "Longitude": -74.0060, "Location": "New York" },
+      { "Barge Name": "Barge A", "Timestamp": "2024-01-02T00:00:00Z", "Latitude": 41.8781, "Longitude": -87.6298, "Location": "Chicago" },
+      { "Barge Name": "Barge A", "Timestamp": "2024-01-03T00:00:00Z", "Latitude": 34.0522, "Longitude": -118.2437, "Location": "Los Angeles" },
+      { "Barge Name": "Barge B", "Timestamp": "2024-01-01T00:00:00Z", "Latitude": 29.7604, "Longitude": -95.3698, "Location": "Houston" },
+      { "Barge Name": "Barge B", "Timestamp": "2024-01-02T00:00:00Z", "Latitude": 25.7617, "Longitude": -80.1918, "Location": "Miami" },
+      { "Barge Name": "Barge B", "Timestamp": "2024-01-03T00:00:00Z", "Latitude": 47.6062, "Longitude": -122.3321, "Location": "Seattle" }
+    ];
 
     // Initialize map
     const map = L.map('map', {
-      zoomControl: false,
-      timeDimension: true,
-      timeDimensionControl: false
+      zoomControl: false
     });
 
     // Add base layer
@@ -66,242 +70,194 @@
     // Colors for barges
     const colors = ['#E74C3C', '#5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
 
-    // Fetch and process data
-    fetch('/barge_data.json')
-      .then(response => {
-        console.log('Fetch response status:', response.status, response.statusText);
-        if (!response.ok) {
-          throw new Error(`Failed to load barge_data.json: ${response.status} ${response.statusText}`);
+    // Global variables
+    let currentData = [];
+    let uniqueTimes = [];
+    let bargeMarkers = {};
+    let bargePaths = {};
+    let isPlaying = false;
+    let currentTimeIndex = 0;
+    let animationTimeout;
+
+    function loadData() {
+      // Try to fetch actual data, fall back to sample data
+      return fetch('/barge_data.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to load barge_data.json');
+          }
+          return response.json();
+        })
+        .catch(error => {
+          console.warn('Could not load barge_data.json, using sample data:', error);
+          return sampleData;
+        });
+    }
+
+    function processData(data) {
+      console.log('Processing data:', data);
+      
+      if (!data || !Array.isArray(data) || data.length === 0) {
+        throw new Error('No valid data available');
+      }
+
+      // Convert timestamps and filter invalid positions
+      const processedData = data
+        .map(d => ({
+          ...d,
+          Timestamp: new Date(d.Timestamp).toISOString()
+        }))
+        .filter(d => d.Latitude !== 0 && d.Longitude !== 0)
+        .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+
+      // Get unique times
+      uniqueTimes = [...new Set(processedData.map(d => d.Timestamp))].sort();
+      
+      // Get unique barges
+      const barges = [...new Set(processedData.map(d => d['Barge Name']))].sort();
+      
+      // Create color mapping
+      const colorDict = {};
+      barges.forEach((barge, i) => {
+        colorDict[barge] = colors[i % colors.length];
+      });
+
+      // Set map center
+      const avgLat = processedData.reduce((sum, d) => sum + d.Latitude, 0) / processedData.length;
+      const avgLon = processedData.reduce((sum, d) => sum + d.Longitude, 0) / processedData.length;
+      map.setView([avgLat, avgLon], 4);
+
+      // Create legend
+      const legend = document.getElementById('legend');
+      legend.innerHTML = '';
+      barges.forEach(barge => {
+        const span = document.createElement('span');
+        span.innerHTML = `<span style="color: ${colorDict[barge]}; font-weight: bold;">● ${barge}</span>`;
+        legend.appendChild(span);
+      });
+
+      // Initialize markers and paths for each barge
+      barges.forEach(barge => {
+        bargeMarkers[barge] = L.circleMarker([0, 0], {
+          fillColor: colorDict[barge],
+          fillOpacity: 0.8,
+          stroke: true,
+          color: 'black',
+          weight: 2,
+          radius: 8
+        }).addTo(map);
+
+        bargePaths[barge] = L.polyline([], {
+          color: colorDict[barge],
+          weight: 3,
+          opacity: 0.6
+        }).addTo(map);
+      });
+
+      return { processedData, barges, colorDict };
+    }
+
+    function updateMapForTime(timeIndex) {
+      const currentTime = uniqueTimes[timeIndex];
+      const currentTimeData = currentData.filter(d => d.Timestamp === currentTime);
+
+      // Update markers for current time
+      currentTimeData.forEach(point => {
+        const marker = bargeMarkers[point['Barge Name']];
+        if (marker) {
+          marker.setLatLng([point.Latitude, point.Longitude]);
+          marker.bindTooltip(`${point['Barge Name']}<br>Location: ${point.Location}<br>Date: ${new Date(point.Timestamp).toLocaleDateString()}`, {
+            direction: 'top',
+            offset: [0, -10]
+          });
         }
-        return response.json();
-      })
+      });
+
+      // Update paths (show history up to current time)
+      Object.keys(bargePaths).forEach(barge => {
+        const bargeHistory = currentData
+          .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= new Date(currentTime))
+          .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+        
+        const pathCoords = bargeHistory.map(d => [d.Latitude, d.Longitude]);
+        bargePaths[barge].setLatLngs(pathCoords);
+      });
+
+      // Update time display
+      document.getElementById('currentTime').textContent = new Date(currentTime).toLocaleDateString();
+      document.getElementById('timeSlider').value = timeIndex;
+    }
+
+    function setupControls() {
+      const timeSlider = document.getElementById('timeSlider');
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const playSpeed = document.getElementById('playSpeed');
+
+      timeSlider.min = 0;
+      timeSlider.max = uniqueTimes.length - 1;
+      timeSlider.value = 0;
+
+      timeSlider.addEventListener('input', (e) => {
+        currentTimeIndex = parseInt(e.target.value);
+        updateMapForTime(currentTimeIndex);
+        if (isPlaying) {
+          stopAnimation();
+        }
+      });
+
+      playPauseBtn.addEventListener('click', () => {
+        if (isPlaying) {
+          stopAnimation();
+        } else {
+          startAnimation();
+        }
+      });
+    }
+
+    function startAnimation() {
+      isPlaying = true;
+      document.getElementById('playPauseBtn').textContent = '⏸ Pause';
+      animate();
+    }
+
+    function stopAnimation() {
+      isPlaying = false;
+      document.getElementById('playPauseBtn').textContent = '▶️ Play';
+      if (animationTimeout) {
+        clearTimeout(animationTimeout);
+      }
+    }
+
+    function animate() {
+      if (!isPlaying) return;
+
+      if (currentTimeIndex < uniqueTimes.length - 1) {
+        currentTimeIndex++;
+        updateMapForTime(currentTimeIndex);
+        
+        const speed = parseInt(document.getElementById('playSpeed').value);
+        animationTimeout = setTimeout(animate, speed);
+      } else {
+        // Animation finished
+        stopAnimation();
+      }
+    }
+
+    // Initialize the application
+    loadData()
       .then(data => {
-        console.log('Fetched data:', data);
-        if (!data || !Array.isArray(data) || data.length === 0) {
-          console.error('No valid data in barge_data.json');
-          return;
-        }
-
-        // Convert timestamps to ISO format
-        data.forEach(d => {
-          d.Timestamp = new Date(d.Timestamp).toISOString();
-        });
-
-        // Filter out invalid positions (lat/lon = 0)
-        data = data.filter(d => d.Latitude !== 0 && d.Longitude !== 0);
-
-        // Get unique barges
-        const barges = [...new Set(data.map(d => d['Barge Name']))].sort();
-        const colorDict = {};
-        barges.forEach((barge, i) => {
-          colorDict[barge] = colors[i % colors.length];
-        });
-
-        // Set map center based on average position
-        const avgLat = data.reduce((sum, d) => sum + d.Latitude, 0) / data.length;
-        const avgLon = data.reduce((sum, d) => sum + d.Longitude, 0) / data.length;
-        map.setView([avgLat, avgLon], 3);
-
-        // Create legend
-        const legend = document.getElementById('legend');
-        barges.forEach(barge => {
-          const span = document.createElement('span');
-          span.innerHTML = `<span style="color: ${colorDict[barge]}; font-weight: bold;">● ${barge}</span>`;
-          legend.appendChild(span);
-        });
-
-        // Prepare GeoJSON features
-        const features = [];
-        barges.forEach(barge => {
-          const bargeData = data
-            .filter(d => d['Barge Name'] === barge)
-            .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
-
-          // Points
-          bargeData.forEach((point, i) => {
-            features.push({
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [point.Longitude, point.Latitude]
-              },
-              properties: {
-                time: point.Timestamp,
-                popup: `${barge}<br>Location: ${point.Location}<br>Date: ${new Date(point.Timestamp).toLocaleDateString()}`,
-                icon: 'circle',
-                iconstyle: {
-                  fillColor: colorDict[barge],
-                  fillOpacity: 0.8,
-                  stroke: true,
-                  color: 'black',
-                  weight: 1,
-                  radius: 6
-                }
-              }
-            });
-          });
-
-          // Line segments
-          bargeData.forEach((point, i) => {
-            if (i === 0) return;
-            const prevPoint = bargeData[i - 1];
-            if (point.Latitude === prevPoint.Latitude && point.Longitude === prevPoint.Longitude) return;
-            features.push({
-              type: 'Feature',
-              geometry: {
-                type: 'LineString',
-                coordinates: [
-                  [prevPoint.Longitude, prevPoint.Latitude],
-                  [point.Longitude, point.Latitude]
-                ]
-              },
-              properties: {
-                time: point.Timestamp,
-                id: `${barge}_${i}`,
-                style: {
-                  color: colorDict[barge],
-                  weight: 5,
-                  opacity: 0.8
-                },
-                popup: `${barge} path segment<br>From: ${new Date(prevPoint.Timestamp).toLocaleDateString()} to ${new Date(point.Timestamp).toLocaleDateString()}`
-              }
-            });
-          });
-        });
-
-        // Initialize TimeDimension
-        const timeDimension = map.timeDimension;
-        const timeDimensionLayer = L.timeDimension.layer.geoJson(
-          L.geoJson({
-            type: 'FeatureCollection',
-            features: features
-          }, {
-            pointToLayer: (feature, latlng) => {
-              if (feature.properties.icon === 'circle') {
-                return L.circleMarker(latlng, feature.properties.iconstyle);
-              }
-              return L.marker(latlng);
-            },
-            onEachFeature: (feature, layer) => {
-              if (feature.properties.popup) {
-                layer.bindTooltip(feature.properties.popup, {
-                  direction: 'top',
-                  offset: [0, -10],
-                  className: 'tooltip'
-                });
-              }
-            }
-          }),
-          {
-            addlastPoint: true,
-            waitForReady: true
-          }
-        ).addTo(map);
-
-        // Add arrows using PolylineDecorator
-        const decoratorLayer = L.timeDimension.layer.geoJson(
-          L.geoJson({
-            type: 'FeatureCollection',
-            features: features.filter(f => f.geometry.type === 'LineString')
-          }, {
-            style: feature => feature.properties.style,
-            onEachFeature: (feature, layer) => {
-              const decorator = L.polylineDecorator(layer, {
-                patterns: [{
-                  offset: '100%',
-                  repeat: 0,
-                  symbol: L.Symbol.arrowHead({
-                    pixelSize: 15,
-                    polygon: false,
-                    pathOptions: {
-                      stroke: true,
-                      color: feature.properties.style.color,
-                      weight: 2
-                    }
-                  })
-                }]
-              });
-              layer.on('add', () => {
-                decorator.addTo(map);
-              });
-              layer.on('remove', () => {
-                decorator.remove();
-              });
-            }
-          }),
-          {
-            addlastPoint: false,
-            waitForReady: true
-          }
-        ).addTo(map);
-
-        // Custom time slider and play/pause controls
-        const timeSlider = document.getElementById('timeSlider');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const playSpeed = document.getElementById('playSpeed');
-        const currentTimeDisplay = document.getElementById('currentTime');
-
-        let isPlaying = false;
-        let times = [...new Set(data.map(d => d['Barge Name']))].sort();
-        timeSlider.min = 0;
-        timeSlider.max = times.length - 1;
-        timeSlider.value = 0;
-
-        const updateTimeDisplay = () => {
-          const currentTime = times[timeSlider.value];
-          currentTimeDisplay.textContent = new Date(currentTime).toLocaleDateString();
-          timeDimension.setCurrentTime(currentTime);
-        };
-
-        timeSlider.addEventListener('input', () => {
-          isPlaying = false;
-          playPauseBtn.textContent = '▶️ Play';
-          updateTimeDisplay();
-        });
-
-        playPauseBtn.addEventListener('click', () => {
-          isPlaying = !isPlaying;
-          playPauseBtn.textContent = isPlaying ? '⏸ Pause' : '▶️ Play';
-        });
-
-        playSpeed.addEventListener('change', () => {
-          if (isPlaying) {
-            isPlaying = false;
-            setTimeout(() => {
-              isPlaying = true;
-            }, 100);
-          }
-        });
-
-        const playAnimation = () => {
-          if (!isPlaying) return;
-          const speed = parseInt(playSpeed.value);
-          let currentIndex = parseInt(timeSlider.value);
-          if (currentIndex < times.length - 1) {
-            currentIndex++;
-            timeSlider.value = currentIndex;
-            updateTimeDisplay();
-            setTimeout(playAnimation, speed);
-          } else {
-            isPlaying = false;
-            playPauseBtn.textContent = '▶️ Play';
-          }
-        };
-
-        timeDimension.on('timeload', updateTimeDisplay);
-        updateTimeDisplay();
-
-        setInterval(() => {
-          if (isPlaying) playAnimation();
-        }, 100);
-
-        // Auto-start animation
-        isPlaying = true;
-        playPauseBtn.textContent = '⏸ Pause';
+        const result = processData(data);
+        currentData = result.processedData;
+        setupControls();
+        updateMapForTime(0);
+        console.log('Barge tracker initialized successfully');
       })
       .catch(error => {
-        console.error('Error loading data:', error);
-        alert('Failed to load barge data. Check console for details.');
+        console.error('Error initializing barge tracker:', error);
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.innerHTML = `Error loading data: ${error.message}<br>Please check that your barge_data.json file exists and is properly formatted.`;
+        document.body.insertBefore(errorDiv, document.getElementById('map'));
       });
   </script>
 </body>
