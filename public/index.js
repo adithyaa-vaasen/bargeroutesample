@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barge Schedule Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    #map { height: 85vh; }
+    .leaflet-control-timecontrol { z-index: 1000; }
+    .start-icon { font-size: 20px; color: green; }
+    .end-icon { font-size: 20px; transform-origin: center center; }
+    .tooltip { background: white; border: 1px solid #ccc; border-radius: 4px; padding: 5px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #f5f5f5; border-bottom: 1px solid #ccc; }
+    .controls { padding: 10px; display: flex; gap: 10px; align-items: center; }
+    .legend { display: flex; gap: 15px; padding: 5px 10px; background: #f5f5f5; border-radius: 4px; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>Barge Schedule Tracker</h2>
+    <span>Slide through dates to view barge movements</span>
+  </div>
+  <div class="controls">
+    <button id="playPauseBtn">▶️ Play</button>
+    <label>
+      Speed:
+      <select id="playSpeed">
+        <option value="500">Slow</option>
+        <option value="250" selected>Normal</option>
+        <option value="100">Fast</option>
+        <option value="50">Very Fast</option>
+      </select>
+    </label>
+    <input type="range" id="timeSlider" style="width: 300px;" />
+    <span id="currentTime" style="font-weight: bold;"></span>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
+  <script src="https://unpkg.com/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.js"></script>
+  <script>
+    // Initialize map
+    const map = L.map('map', {
+      zoomControl: false,
+      timeDimension: true,
+      timeDimensionControl: false // We'll use a custom slider
+    });
+
+    // Add base layer
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    }).add_to(map);
+
+    // Move zoom control to top-right
+    L.control.zoom({ position: 'topright' }).addTo(map);
+
+    // Colors for barges
+    const colors = ['#E74C3C', '#5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
+
+    // Fetch and process data
+    fetch('/data/barge_data.json')
+      .then(response => response.json())
+      .then(data => {
+        // Convert timestamps to ISO format
+        data.forEach(d => {
+          d.Timestamp = new Date(d.Timestamp).toISOString();
+        });
+
+        // Get unique barges
+        const barges = [...new Set(data.map(d => d['Barge Name']))].sort();
+        const colorDict = {};
+        barges.forEach((barge, i) => {
+          colorDict[barge] = colors[i % colors.length];
+        });
+
+        // Set map center based on average position
+        const avgLat = data.reduce((sum, d) => sum + d.Latitude, 0) / data.length;
+        const avgLon = data.reduce((sum, d) => sum + d.Longitude, 0) / data.length;
+        map.setView([avgLat, avgLon], 3);
+
+        // Create legend
+        const legend = document.getElementById('legend');
+        barges.forEach(barge => {
+          const span = document.createElement('span');
+          span.innerHTML = `<span style="color: ${colorDict[barge]}; font-weight: bold;">● ${barge}</span>`;
+          legend.appendChild(span);
+        });
+
+        // Prepare GeoJSON features
+        const features = [];
+        barges.forEach(barge => {
+          const bargeData = data
+            .filter(d => d['Barge Name'] === barge)
+            .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+
+          // Points
+          bargeData.forEach((point, i) => {
+            features.push({
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [point.Longitude, point.Latitude]
+              },
+              properties: {
+                time: point.Timestamp,
+                popup: `${barge}<br>Location: ${point.Location}<br>Date: ${new Date(point.Timestamp).toLocaleDateString()}`,
+                icon: 'circle',
+                iconstyle: {
+                  fillColor: colorDict[barge],
+                  fillOpacity: 0.8,
+                  stroke: true,
+                  color: 'black',
+                  weight: 1,
+                  radius: 6
+                }
+              }
+            });
+          });
+
+          // Line segments
+          bargeData.forEach((point, i) => {
+            if (i === 0) return;
+            const prevPoint = bargeData[i - 1];
+            if (point.Latitude === prevPoint.Latitude && point.Longitude === prevPoint.Longitude) return;
+            features.push({
+              type: 'Feature',
+              geometry: {
+                type: 'LineString',
+                coordinates: [
+                  [prevPoint.Longitude, prevPoint.Latitude],
+                  [point.Longitude, point.Latitude]
+                ]
+              },
+              properties: {
+                time: point.Timestamp,
+                id: `${barge}_${i}`,
+                style: {
+                  color: colorDict[barge],
+                  weight: 5,
+                  opacity: 0.8
+                },
+                popup: `${barge} path segment<br>From: ${new Date(prevPoint.Timestamp).toLocaleDateString()} to ${new Date(point.Timestamp).toLocaleDateString()}`
+              }
+            });
+          });
+        });
+
+        // Initialize TimeDimension
+        const timeDimension = map.timeDimension;
+        const timeDimensionLayer = L.timeDimension.layer.geoJson(
+          L.geoJson({
+            type: 'FeatureCollection',
+            features: features
+          }, {
+            pointToLayer: (feature, latlng) => {
+              if (feature.properties.icon === 'circle') {
+                return L.circleMarker(latlng, feature.properties.iconstyle);
+              }
+              return L.marker(latlng);
+            },
+            onEachFeature: (feature, layer) => {
+              if (feature.properties.popup) {
+                layer.bindTooltip(feature.properties.popup, {
+                  direction: 'top',
+                  offset: [0, -10],
+                  className: 'tooltip'
+                });
+              }
+            }
+          }),
+          {
+            addlastPoint: true,
+            waitForReady: true
+          }
+        ).addTo(map);
+
+        // Add arrows using PolylineDecorator
+        const decoratorLayer = L.timeDimension.layer.geoJson(
+          L.geoJson({
+            type: 'FeatureCollection',
+            features: features.filter(f => f.geometry.type === 'LineString')
+          }, {
+            style: feature => feature.properties.style,
+            onEachFeature: (feature, layer) => {
+              const decorator = L.polylineDecorator(layer, {
+                patterns: [{
+                  offset: '100%',
+                  repeat: 0,
+                  symbol: L.Symbol.arrowHead({
+                    pixelSize: 15,
+                    polygon: false,
+                    pathOptions: {
+                      stroke: true,
+                      color: feature.properties.style.color,
+                      weight: 2
+                    }
+                  })
+                }]
+              });
+              layer.on('add', () => {
+                decorator.addTo(map);
+              });
+              layer.on('remove', () => {
+                decorator.remove();
+              });
+            }
+          }),
+          {
+            addlastPoint: false,
+            waitForReady: true
+          }
+        ).addTo(map);
+
+        // Custom time slider and play/pause controls
+        const timeSlider = document.getElementById('timeSlider');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playSpeed = document.getElementById('playSpeed');
+        const currentTimeDisplay = document.getElementById('currentTime');
+
+        let isPlaying = false;
+        let times = [...new Set(data.map(d => new Date(d.Timestamp).getTime()))].sort();
+        timeSlider.min = 0;
+        timeSlider.max = times.length - 1;
+        timeSlider.value = 0;
+
+        const updateTimeDisplay = () => {
+          const currentTime = times[timeSlider.value];
+          currentTimeDisplay.textContent = new Date(currentTime).toLocaleDateString();
+          timeDimension.setCurrentTime(currentTime);
+        };
+
+        timeSlider.addEventListener('input', () => {
+          isPlaying = false;
+          playPauseBtn.textContent = '▶️ Play';
+          updateTimeDisplay();
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+          isPlaying = !isPlaying;
+          playPauseBtn.textContent = isPlaying ? '⏸ Pause' : '▶️ Play';
+        });
+
+        playSpeed.addEventListener('change', () => {
+          if (isPlaying) {
+            isPlaying = false;
+            setTimeout(() => {
+              isPlaying = true;
+            }, 100);
+          }
+        });
+
+        const playAnimation = () => {
+          if (!isPlaying) return;
+          const speed = parseInt(playSpeed.value);
+          let currentIndex = parseInt(timeSlider.value);
+          if (currentIndex < times.length - 1) {
+            currentIndex++;
+            timeSlider.value = currentIndex;
+            updateTimeDisplay();
+            setTimeout(playAnimation, speed);
+          } else {
+            isPlaying = false;
+            playPauseBtn.textContent = '▶️ Play';
+          }
+        };
+
+        timeDimension.on('timeload', updateTimeDisplay);
+        updateTimeDisplay();
+
+        setInterval(() => {
+          if (isPlaying) playAnimation();
+        }, 100);
+
+        // Auto-start animation
+        isPlaying = true;
+        playPauseBtn.textContent = '⏸ Pause';
+      })
+      .catch(error => console.error('Error loading data:', error));
+  </script>
+</body>
+</html>
