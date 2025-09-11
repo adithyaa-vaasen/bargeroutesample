@@ -47,13 +47,13 @@
     const map = L.map('map', {
       zoomControl: false,
       timeDimension: true,
-      timeDimensionControl: false // We'll use a custom slider
+      timeDimensionControl: false
     });
 
     // Add base layer
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
-    }).add_to(map);
+    }).addTo(map);
 
     // Move zoom control to top-right
     L.control.zoom({ position: 'topright' }).addTo(map);
@@ -63,12 +63,18 @@
 
     // Fetch and process data
     fetch('/data/barge_data.json')
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load barge_data.json');
+        return response.json();
+      })
       .then(data => {
         // Convert timestamps to ISO format
         data.forEach(d => {
           d.Timestamp = new Date(d.Timestamp).toISOString();
         });
+
+        // Filter out invalid positions (lat/lon = 0)
+        data = data.filter(d => d.Latitude !== 0 && d.Longitude !== 0);
 
         // Get unique barges
         const barges = [...new Set(data.map(d => d['Barge Name']))].sort();
