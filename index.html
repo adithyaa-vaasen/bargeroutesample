@@ -107,7 +107,7 @@
           ...d,
           Timestamp: new Date(d.Timestamp).toISOString()
         }))
-        .filter(d => d.Latitude !== 0 && d.Longitude !== 0)
+        .filter(d => d.Latitude !== 0 && d.Longitude !== 0 && d.Latitude != null && d.Longitude != null)
         .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
 
       // Get unique times
