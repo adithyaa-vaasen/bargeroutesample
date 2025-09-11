@@ -177,9 +177,8 @@
       const currentTime = uniqueTimes[timeIndex];
       const currentTimeData = currentData.filter(d => d.Timestamp === currentTime);
 
-      // Hide all markers and paths first
+      // Set path opacity based on filter
       Object.keys(bargeMarkers).forEach(barge => {
-        map.removeLayer(bargeMarkers[barge]);
         if (selectedBarge !== 'all' && selectedBarge !== barge) {
           bargePaths[barge].setStyle({ opacity: 0 });
         } else {
@@ -187,18 +186,35 @@
         }
       });
 
-      // Update markers for current time
-      currentTimeData.forEach(point => {
-        const barge = point['Barge Name'];
+      // For each barge, determine if it should be visible and where
+      Object.keys(bargeMarkers).forEach(barge => {
         const marker = bargeMarkers[barge];
         
-        if (marker && (selectedBarge === 'all' || selectedBarge === barge)) {
-          marker.setLatLng([point.Latitude, point.Longitude]);
+        // Get all data for this barge up to current time
+        const bargeDataUpToNow = currentData
+          .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= new Date(currentTime))
+          .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+        
+        // Get all data for this barge (to find last data point)
+        const allBargeData = currentData
+          .filter(d => d['Barge Name'] === barge)
+          .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+        
+        const lastDataPoint = allBargeData[allBargeData.length - 1];
+        const hasPassedLastDataPoint = lastDataPoint && new Date(currentTime) > new Date(lastDataPoint.Timestamp);
+        
+        if (bargeDataUpToNow.length > 0 && !hasPassedLastDataPoint && (selectedBarge === 'all' || selectedBarge === barge)) {
+          // Show barge at its most recent known position
+          const mostRecentPosition = bargeDataUpToNow[bargeDataUpToNow.length - 1];
+          marker.setLatLng([mostRecentPosition.Latitude, mostRecentPosition.Longitude]);
           marker.addTo(map);
-          marker.bindTooltip(`${barge}<br>Step: ${point['Schedule Step'] || 'N/A'}<br>Location: ${point.Location || 'N/A'}<br>Date: ${new Date(point.Timestamp).toLocaleDateString()}`, {
+          marker.bindTooltip(`${barge}<br>Step: ${mostRecentPosition['Schedule Step'] || 'N/A'}<br>Location: ${mostRecentPosition.Location || 'N/A'}<br>Date: ${new Date(mostRecentPosition.Timestamp).toLocaleDateString()}`, {
             direction: 'top',
             offset: [0, -10]
           });
+        } else {
+          // Hide barge if it hasn't started yet or has finished
+          map.removeLayer(marker);
         }
       });
 
