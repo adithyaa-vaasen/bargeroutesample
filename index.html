@@ -35,6 +35,12 @@
         <option value="100">Very Fast</option>
       </select>
     </label>
+    <label>
+      Filter Barge:
+      <select id="bargeFilter">
+        <option value="all">All Barges</option>
+      </select>
+    </label>
     <input type="range" id="timeSlider" style="width: 300px;" />
     <span id="currentTime" style="font-weight: bold;">Loading...</span>
     <div class="legend" id="legend"></div>
@@ -44,15 +50,8 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
   <script>
-    // Sample data (replace this with your actual data loading)
-    const sampleData = [
-      { "Barge Name": "Barge A", "Timestamp": "2024-01-01T00:00:00Z", "Latitude": 40.7128, "Longitude": -74.0060, "Location": "New York" },
-      { "Barge Name": "Barge A", "Timestamp": "2024-01-02T00:00:00Z", "Latitude": 41.8781, "Longitude": -87.6298, "Location": "Chicago" },
-      { "Barge Name": "Barge A", "Timestamp": "2024-01-03T00:00:00Z", "Latitude": 34.0522, "Longitude": -118.2437, "Location": "Los Angeles" },
-      { "Barge Name": "Barge B", "Timestamp": "2024-01-01T00:00:00Z", "Latitude": 29.7604, "Longitude": -95.3698, "Location": "Houston" },
-      { "Barge Name": "Barge B", "Timestamp": "2024-01-02T00:00:00Z", "Latitude": 25.7617, "Longitude": -80.1918, "Location": "Miami" },
-      { "Barge Name": "Barge B", "Timestamp": "2024-01-03T00:00:00Z", "Latitude": 47.6062, "Longitude": -122.3321, "Location": "Seattle" }
-    ];
+    // Your actual barge data will be loaded from the JSON file
+    const sampleData = [];
 
     // Initialize map
     const map = L.map('map', {
@@ -78,6 +77,7 @@
     let isPlaying = false;
     let currentTimeIndex = 0;
     let animationTimeout;
+    let selectedBarge = 'all';
 
     function loadData() {
       // Try to fetch actual data, fall back to sample data
@@ -132,19 +132,34 @@
       legend.innerHTML = '';
       barges.forEach(barge => {
         const span = document.createElement('span');
-        span.innerHTML = `<span style="color: ${colorDict[barge]}; font-weight: bold;">● ${barge}</span>`;
+        span.innerHTML = `<span style="color: ${colorDict[barge]}; font-weight: bold;">■ ${barge}</span>`;
         legend.appendChild(span);
+      });
+
+      // Populate barge filter dropdown
+      const bargeFilter = document.getElementById('bargeFilter');
+      barges.forEach(barge => {
+        const option = document.createElement('option');
+        option.value = barge;
+        option.textContent = barge;
+        bargeFilter.appendChild(option);
       });
 
       // Initialize markers and paths for each barge
       barges.forEach(barge => {
-        bargeMarkers[barge] = L.circleMarker([0, 0], {
-          fillColor: colorDict[barge],
-          fillOpacity: 0.8,
-          stroke: true,
-          color: 'black',
-          weight: 2,
-          radius: 8
+        bargeMarkers[barge] = L.marker([0, 0], {
+          icon: L.divIcon({
+            className: 'barge-rectangle',
+            html: `<div style="
+              width: 16px; 
+              height: 10px; 
+              background-color: ${colorDict[barge]}; 
+              border: 1px solid black;
+              border-radius: 2px;
+            "></div>`,
+            iconSize: [16, 10],
+            iconAnchor: [8, 5]
+          })
         }).addTo(map);
 
         bargePaths[barge] = L.polyline([], {
@@ -161,12 +176,24 @@
       const currentTime = uniqueTimes[timeIndex];
       const currentTimeData = currentData.filter(d => d.Timestamp === currentTime);
 
+      // Hide all markers and paths first
+      Object.keys(bargeMarkers).forEach(barge => {
+        bargeMarkers[barge].setLatLng([0, 0]);
+        if (selectedBarge !== 'all' && selectedBarge !== barge) {
+          bargePaths[barge].setStyle({ opacity: 0 });
+        } else {
+          bargePaths[barge].setStyle({ opacity: 0.6 });
+        }
+      });
+
       // Update markers for current time
       currentTimeData.forEach(point => {
-        const marker = bargeMarkers[point['Barge Name']];
-        if (marker) {
+        const barge = point['Barge Name'];
+        const marker = bargeMarkers[barge];
+        
+        if (marker && (selectedBarge === 'all' || selectedBarge === barge)) {
           marker.setLatLng([point.Latitude, point.Longitude]);
-          marker.bindTooltip(`${point['Barge Name']}<br>Step: ${point['Schedule Step'] || 'N/A'}<br>Location: ${point.Location || 'N/A'}<br>Date: ${new Date(point.Timestamp).toLocaleDateString()}`, {
+          marker.bindTooltip(`${barge}<br>Step: ${point['Schedule Step'] || 'N/A'}<br>Location: ${point.Location || 'N/A'}<br>Date: ${new Date(point.Timestamp).toLocaleDateString()}`, {
             direction: 'top',
             offset: [0, -10]
           });
@@ -175,12 +202,14 @@
 
       // Update paths (show history up to current time)
       Object.keys(bargePaths).forEach(barge => {
-        const bargeHistory = currentData
-          .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= new Date(currentTime))
-          .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
-        
-        const pathCoords = bargeHistory.map(d => [d.Latitude, d.Longitude]);
-        bargePaths[barge].setLatLngs(pathCoords);
+        if (selectedBarge === 'all' || selectedBarge === barge) {
+          const bargeHistory = currentData
+            .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= new Date(currentTime))
+            .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+          
+          const pathCoords = bargeHistory.map(d => [d.Latitude, d.Longitude]);
+          bargePaths[barge].setLatLngs(pathCoords);
+        }
       });
 
       // Update time display
@@ -192,6 +221,13 @@
       const timeSlider = document.getElementById('timeSlider');
       const playPauseBtn = document.getElementById('playPauseBtn');
       const playSpeed = document.getElementById('playSpeed');
+      const bargeFilter = document.getElementById('bargeFilter');
+
+      // Check if all elements exist
+      if (!timeSlider || !playPauseBtn || !playSpeed || !bargeFilter) {
+        console.error('One or more control elements not found');
+        return;
+      }
 
       timeSlider.min = 0;
       timeSlider.max = uniqueTimes.length - 1;
@@ -211,6 +247,11 @@
         } else {
           startAnimation();
         }
+      });
+
+      bargeFilter.addEventListener('change', (e) => {
+        selectedBarge = e.target.value;
+        updateMapForTime(currentTimeIndex);
       });
     }
 
