@@ -54,7 +54,7 @@
     let currentData = [], stormData = [];
     let uniqueTimes = [];
     let bargeMarkers = {}, bargePaths = {};
-    let stormMarkers = {};  // { stormName: marker }
+    let stormMarkers = {};
     let isPlaying = false, currentTimeIndex = 0, animationTimeout;
     let selectedBarge = 'all';
 
@@ -96,17 +96,26 @@
       });
       Object.values(storms).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
 
-      // === TIME MERGING ===
+      // === TIME MERGING + MAP CENTERING ===
       const allTimes = new Set();
       processedBarge.forEach(d => allTimes.add(d.Timestamp));
       stormGeoJSON.features.forEach(f => allTimes.add(f.properties.time));
       uniqueTimes = Array.from(allTimes).sort();
 
-      // Add cleanup timestamp
       if (uniqueTimes.length > 0) {
         const last = new Date(uniqueTimes[uniqueTimes.length - 1]);
         last.setDate(last.getDate() + 1);
         uniqueTimes.push(last.toISOString());
+      }
+
+      // CENTER MAP ON BARGES
+      const validPoints = processedBarge.filter(d => d.Latitude && d.Longitude);
+      if (validPoints.length > 0) {
+        const avgLat = validPoints.reduce((s, d) => s + d.Latitude, 0) / validPoints.length;
+        const avgLon = validPoints.reduce((s, d) => s + d.Longitude, 0) / validPoints.length;
+        map.setView([avgLat, avgLon], 5);
+      } else {
+        map.setView([30, -90], 3);
       }
 
       // === LEGEND ===
@@ -114,7 +123,7 @@
       legend.innerHTML = '';
       barges.forEach(b => {
         const s = document.createElement('span');
-        s.innerHTML = `<span style="color: ${colorDict[b]}; font-weight: bold;">■ ${b}</span>`;
+        s.innerHTML = `<span style="color: ${colorDict[b]}; font-weight: bold;">Barge: ${b}</span>`;
         legend.appendChild(s);
       });
 
@@ -190,7 +199,7 @@
           path.setLatLngs(history.map(p => [p.Latitude, p.Longitude]));
           path.setStyle({ opacity: 0.6 });
         } else {
-          map.removeLayer(marker);
+          if (map.hasLayer(marker)) map.removeLayer(marker);
           path.setStyle({ opacity: selectedBarge === barge ? 0.6 : 0 });
         }
       });
@@ -210,11 +219,10 @@
             direction: 'top', offset: [0, -10]
           });
         } else {
-          map.removeLayer(marker);
+          if (map.hasLayer(marker)) map.removeLayer(marker);
         }
       });
 
-      // === TIME DISPLAY ===
       document.getElementById('currentTime').textContent = now.toLocaleDateString();
       document.getElementById('timeSlider').value = timeIndex;
     }
