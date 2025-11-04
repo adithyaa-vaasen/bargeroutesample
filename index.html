@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barge Schedule Map</title>
+  <title>Barge + Storm Tracker (2015–2025 → 2027)</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     body { margin: 0; font-family: Arial, sans-serif; }
     #map { height: 85vh; }
-    .tooltip { background: white; border: 1px solid #ccc; border-radius: 4px; padding: 5px; }
     .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #f5f5f5; border-bottom: 1px solid #ccc; }
     .controls { padding: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
     .legend { display: flex; gap: 15px; padding: 5px 10px; background: #f5f5f5; border-radius: 4px; font-size: 13px; flex-wrap: wrap; }
     .error-message { background: #ffebee; color: #c62828; padding: 10px; border-radius: 4px; margin: 10px; }
+    .storm-legend { background: white; padding: 10px; border: 2px solid #ccc; border-radius: 6px; font-size: 12px; }
   </style>
 </head>
 <body>
   <div class="header">
-    <h2>Barge Tracker</h2>
-    <span>Slide through dates to view barge movements</span>
+    <h2>Barge & Storm Tracker</h2>
+    <span>2015–2025 storms + barge routes | Storms vanish when over</span>
   </div>
   <div class="controls">
-    <button id="playPauseBtn">▶️ Play</button>
+    <button id="playPauseBtn">Play</button>
     <label>
       Speed:
       <select id="playSpeed">
@@ -37,275 +37,291 @@
         <option value="all">All Barges</option>
       </select>
     </label>
+    <label>
+      <input type="checkbox" id="toggleStorms" checked> Show Storms
+    </label>
     <input type="range" id="timeSlider" style="width: 300px;" />
     <span id="currentTime" style="font-weight: bold;">Loading...</span>
     <div class="legend" id="legend"></div>
   </div>
   <div id="map"></div>
- 
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    // Sample data for demo
-    const sampleData = [];
- 
-    // Initialize map
+    // === GLOBALS ===
+    const colors = ['#E74C3C', '#5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
+    let currentData = [], stormData = { points: {}, metadata: {} };
+    let uniqueTimes = [];
+    let bargeMarkers = {}, bargePaths = {}, stormSegmentGroups = {};
+    let isPlaying = false, currentTimeIndex = 0, animationTimeout;
+    let selectedBarge = 'all';
+
+    // === MAP SETUP ===
     const map = L.map('map', { zoomControl: false });
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
     }).addTo(map);
     L.control.zoom({ position: 'topright' }).addTo(map);
- 
-    // Colors for barges
-    const colors = ['#E74C3C', '#5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
- 
-    // Global variables
-    let currentData = [];
-    let uniqueTimes = [];
-    let bargeMarkers = {};
-    let bargePaths = {};
-    let isPlaying = false;
-    let currentTimeIndex = 0;
-    let animationTimeout;
-    let selectedBarge = 'all';
- 
-    function loadData() {
-      return fetch('/barge_data.json')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to load barge_data.json');
-          }
-          return response.json();
-        })
-        .catch(error => {
-          console.warn('Could not load barge_data.json, using sample data:', error);
-          return sampleData;
-        });
+
+    // === INTENSITY → COLOR ===
+    function getStormColor(wind) {
+      if (!wind || wind < 34) return "#E2ECE2";
+      if (wind < 39) return "#00FF00";
+      if (wind < 64) return "#FFFF00";
+      if (wind < 83) return "#FFA500";
+      if (wind < 96) return "#FF6347";
+      if (wind < 113) return "#FF0000";
+      if (wind < 137) return "#FF1493";
+      return "#8B008B";
     }
- 
-    function processData(data) {
-      console.log('Processing data:', data);
-     
-      if (!data || !Array.isArray(data) || data.length === 0) {
-        throw new Error('No valid data available');
-      }
- 
-      // Convert timestamps and filter invalid positions
-      const processedData = data
-        .map(d => ({
-          ...d,
-          Timestamp: new Date(d.Timestamp).toISOString()
-        }))
+
+    // === LOAD DATA ===
+    function loadData() {
+      return Promise.all([
+        fetch('/barge_data.json').then(r => r.ok ? r.json() : []).catch(() => []),
+        fetch('/storms_2015_2025.json').then(r => r.ok ? r.json() : []).catch(() => [])
+      ]);
+    }
+
+    // === PROCESS DATA ===
+    function processData(bargeRaw = [], stormJSON = []) {
+      console.log('Barge records:', Array.isArray(bargeRaw) ? bargeRaw.length : 0);
+
+      // === BARGE DATA ===
+      const processedBarge = (Array.isArray(bargeRaw) ? bargeRaw : [])
+        .map(d => ({ ...d, Timestamp: new Date(d.Timestamp).toISOString() }))
         .filter(d => d.Latitude !== 0 && d.Longitude !== 0 && d.Latitude != null && d.Longitude != null)
         .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
- 
-      // Get unique times and add one more timestamp at the end for cleanup
-      uniqueTimes = [...new Set(processedData.map(d => d.Timestamp))].sort();
-     
-      // Add a timestamp 1 day after the last timestamp so barges can disappear
-      if (uniqueTimes.length > 0) {
-        const lastTime = new Date(uniqueTimes[uniqueTimes.length - 1]);
-        lastTime.setDate(lastTime.getDate() + 1);
-        uniqueTimes.push(lastTime.toISOString());
-      }
-     
-      // Get unique barges
-      const barges = [...new Set(processedData.map(d => d['Barge Name']))].sort();
-     
-      // Create color mapping
+
+      const barges = [...new Set(processedBarge.map(d => d['Barge Name']))].sort();
       const colorDict = {};
-      barges.forEach((barge, i) => {
-        colorDict[barge] = colors[i % colors.length];
+      barges.forEach((b, i) => colorDict[b] = colors[i % colors.length]);
+
+      // === STORM DATA ===
+      const features = stormJSON.features || [];
+      console.log('Storm features:', features.length);
+
+      features.forEach(f => {
+        const p = f.properties;
+        const sid = p.SID;
+        if (!sid) return;
+
+        if (!stormData.metadata[sid]) {
+          stormData.metadata[sid] = { name: p.name, year: new Date(p.time).getUTCFullYear() };
+        }
+        if (!stormData.points[sid]) stormData.points[sid] = [];
+
+        stormData.points[sid].push({
+          time: p.time,
+          lat: f.geometry.coordinates[1],
+          lon: f.geometry.coordinates[0],
+          wind: p.wind,
+          color: p.color || getStormColor(p.wind)
+        });
       });
- 
-      // Set map center
-      const avgLat = processedData.reduce((sum, d) => sum + d.Latitude, 0) / processedData.length;
-      const avgLon = processedData.reduce((sum, d) => sum + d.Longitude, 0) / processedData.length;
-      map.setView([avgLat, avgLon], 4);
- 
-      // Create legend
+      Object.values(stormData.points).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
+
+      // === REBASE TO 2027 ===
+      const rebaseYear = 2027;
+      Object.keys(stormData.points).forEach(sid => {
+        const firstYear = new Date(stormData.points[sid][0].time).getUTCFullYear();
+        const offset = rebaseYear - firstYear;
+        stormData.points[sid].forEach(p => {
+          const d = new Date(p.time);
+          d.setUTCFullYear(d.getUTCFullYear() + offset);
+          p.time = d.toISOString();
+        });
+      });
+
+      // === TIME MERGING ===
+      const allTimes = new Set();
+      processedBarge.forEach(d => allTimes.add(d.Timestamp));
+      Object.values(stormData.points).flat().forEach(p => allTimes.add(p.time));
+      uniqueTimes = Array.from(allTimes).sort();
+
+      if (uniqueTimes.length > 0) {
+        const last = new Date(uniqueTimes[uniqueTimes.length - 1]);
+        last.setDate(last.getDate() + 1);
+        uniqueTimes.push(last.toISOString());
+      }
+
+      // === CENTER MAP ===
+      const valid = processedBarge.filter(d => d.Latitude && d.Longitude);
+      if (valid.length > 0) {
+        const avgLat = valid.reduce((s, d) => s + d.Latitude, 0) / valid.length;
+        const avgLon = valid.reduce((s, d) => s + d.Longitude, 0) / valid.length;
+        map.setView([avgLat, avgLon], 5);
+      } else {
+        map.setView([30, -90], 3);
+      }
+
+      // === LEGEND ===
       const legend = document.getElementById('legend');
       legend.innerHTML = '';
-      barges.forEach(barge => {
-        const span = document.createElement('span');
-        span.innerHTML = `<span style="color: ${colorDict[barge]}; font-weight: bold;">■ ${barge}</span>`;
-        legend.appendChild(span);
+      barges.forEach(b => {
+        legend.innerHTML += `<span style="color:${colorDict[b]};font-weight:bold;">Barge: ${b}</span> `;
       });
- 
-      // Populate barge filter dropdown
-      const bargeFilter = document.getElementById('bargeFilter');
-      barges.forEach(barge => {
-        const option = document.createElement('option');
-        option.value = barge;
-        option.textContent = barge;
-        bargeFilter.appendChild(option);
+
+      const filter = document.getElementById('bargeFilter');
+      barges.forEach(b => {
+        const opt = document.createElement('option');
+        opt.value = b; opt.textContent = b;
+        filter.appendChild(opt);
       });
- 
-      // Initialize markers and paths for each barge
-      barges.forEach(barge => {
-        bargeMarkers[barge] = L.marker([0, 0], {
+
+      // === MARKERS & PATHS ===
+      barges.forEach(b => {
+        bargeMarkers[b] = L.marker([0, 0], {
           icon: L.divIcon({
-            className: 'barge-rectangle',
-            html: `<div style="
-              width: 12px;
-              height: 8px;
-              background-color: ${colorDict[barge]};
-              border: 1px solid black;
-              border-radius: 2px;
-            "></div>`,
-            iconSize: [12, 8],
-            iconAnchor: [8, 5]
+            className: 'barge-rect',
+            html: `<div style="width:12px;height:8px;background:${colorDict[b]};border:1px solid black;border-radius:2px;"></div>`,
+            iconSize: [12, 8], iconAnchor: [6, 4]
           })
         });
- 
-        bargePaths[barge] = L.polyline([], {
-          color: colorDict[barge],
-          weight: 3,
-          opacity: 0.6
-        }).addTo(map);
+        bargePaths[b] = L.polyline([], { color: colorDict[b], weight: 3, opacity: 0.6 }).addTo(map);
       });
- 
-      return { processedData, barges, colorDict };
+
+      Object.keys(stormData.points).forEach(sid => {
+        stormSegmentGroups[sid] = L.featureGroup().addTo(map);
+      });
+
+      // === STORM LEGEND ===
+      const legendCtrl = L.control({ position: 'bottomleft' });
+      legendCtrl.onAdd = () => {
+        const div = L.DomUtil.create('div', 'storm-legend');
+        const categories = [
+          { name: 'Non-TD', color: '#E2ECE2' },
+          { name: 'TD',     color: '#00FF00' },
+          { name: 'TS',     color: '#FFFF00' },
+          { name: 'Cat 1',  color: '#FFA500' },
+          { name: 'Cat 2',  color: '#FF6347' },
+          { name: 'Cat 3',  color: '#FF0000' },
+          { name: 'Cat 4',  color: '#FF1493' },
+          { name: 'Cat 5',  color: '#8B008B' }
+        ];
+
+        let html = '<strong>Storm Intensity</strong><br>';
+        categories.forEach(c => {
+          html += `<i style="background:${c.color};width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:6px;border:1px solid #666;"></i> ${c.name}<br>`;
+        });
+        div.innerHTML = html;
+        return div;
+      };
+      legendCtrl.addTo(map);
+
+      return { processedBarge, barges, colorDict };
     }
- 
+
+    // === UPDATE MAP ===
     function updateMapForTime(timeIndex) {
       const currentTime = uniqueTimes[timeIndex];
- 
-      // For each barge, determine if it should be visible and where
+      const now = new Date(currentTime);
+
+      // === UPDATE BARGES ===
       Object.keys(bargeMarkers).forEach(barge => {
         const marker = bargeMarkers[barge];
-       
-        // Get all data for this barge up to current time
+        const path = bargePaths[barge];
+
         const bargeDataUpToNow = currentData
-          .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= new Date(currentTime))
+          .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= now)
           .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
-       
-        // Get all data for this barge to find last data point
-        const allBargeData = currentData
-          .filter(d => d['Barge Name'] === barge)
-          .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
-       
+
+        const allBargeData = currentData.filter(d => d['Barge Name'] === barge);
         const lastDataPoint = allBargeData[allBargeData.length - 1];
-        const currentTimeDate = new Date(currentTime);
-        const lastDataDate = lastDataPoint ? new Date(lastDataPoint.Timestamp) : null;
-       
-        // Check if current time is beyond the last data point for this barge
-        const passedLastDataPoint = lastDataDate && currentTimeDate > lastDataDate;
-       
-        // Show or hide barge based on conditions
+        const passedLastDataPoint = lastDataPoint && now > new Date(lastDataPoint.Timestamp);
+
         if (bargeDataUpToNow.length > 0 && !passedLastDataPoint && (selectedBarge === 'all' || selectedBarge === barge)) {
-          // Show barge at its most recent known position
-          const mostRecentPosition = bargeDataUpToNow[bargeDataUpToNow.length - 1];
-          marker.setLatLng([mostRecentPosition.Latitude, mostRecentPosition.Longitude]);
-          marker.addTo(map);
-          marker.bindTooltip(`${barge}<br>Step: ${mostRecentPosition['Schedule Step'] || 'N/A'}<br>Location: ${mostRecentPosition.Location || 'N/A'}<br>Date: ${new Date(mostRecentPosition.Timestamp).toLocaleDateString()}`, {
-            direction: 'top',
-            offset: [0, -10]
-          });
+          const pos = bargeDataUpToNow[bargeDataUpToNow.length - 1];
+          marker.setLatLng([pos.Latitude, pos.Longitude]).addTo(map);
+          marker.bindTooltip(
+            `${barge}<br>Step: ${pos['Schedule Step'] || 'N/A'}<br>Location: ${pos.Location || 'N/A'}<br>Date: ${new Date(pos.Timestamp).toLocaleDateString()}`,
+            { direction: 'top', offset: [0, -10] }
+          );
         } else {
-          // Hide barge
-          map.removeLayer(marker);
+          if (map.hasLayer(marker)) map.removeLayer(marker);
         }
- 
-        // Update path
+
         if (selectedBarge === 'all' || selectedBarge === barge) {
-          const bargeHistory = currentData
-            .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= new Date(currentTime))
+          const history = currentData
+            .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= now)
             .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
-         
-          const pathCoords = bargeHistory.map(d => [d.Latitude, d.Longitude]);
-          bargePaths[barge].setLatLngs(pathCoords);
-          bargePaths[barge].setStyle({ opacity: 0.6 });
+          path.setLatLngs(history.map(p => [p.Latitude, p.Longitude]));
+          path.setStyle({ opacity: 0.6 });
         } else {
-          bargePaths[barge].setStyle({ opacity: 0 });
+          path.setStyle({ opacity: 0 });
         }
       });
- 
-      // Update time display
-      document.getElementById('currentTime').textContent = new Date(currentTime).toLocaleDateString();
+
+      // === UPDATE STORMS (REMOVE WHEN OVER) ===
+      const showStorms = document.getElementById('toggleStorms').checked;
+      Object.keys(stormSegmentGroups).forEach(sid => {
+        const group = stormSegmentGroups[sid];
+        const points = stormData.points[sid] || [];
+        const meta = stormData.metadata[sid];
+
+        const lastPointTime = points.length > 0 ? new Date(points[points.length - 1].time) : null;
+        const stormEnded = lastPointTime && now > lastPointTime;
+
+        group.clearLayers();
+
+        if (!showStorms || points.length < 2 || stormEnded) return;
+
+        const visible = points.filter(p => new Date(p.time) <= now);
+        if (visible.length < 2) return;
+
+        for (let i = 0; i < visible.length - 1; i++) {
+          const curr = visible[i], next = visible[i + 1];
+          const seg = L.polyline([[curr.lat, curr.lon], [next.lat, next.lon]], {
+            color: curr.color, weight: 4, opacity: 0.9
+          });
+          seg.bindTooltip(
+            `<strong>${meta.name} (${sid.substring(0,4)})</strong><br>` +
+            `SID: ${sid}<br>` +
+            `Date: ${new Date(curr.time).toLocaleDateString()}<br>` +
+            `Wind: ${curr.wind} kt`,
+            { sticky: true }
+          );
+          group.addLayer(seg);
+        }
+      });
+
+      document.getElementById('currentTime').textContent = now.toLocaleDateString();
       document.getElementById('timeSlider').value = timeIndex;
     }
- 
+
+    // === CONTROLS ===
     function setupControls() {
-      const timeSlider = document.getElementById('timeSlider');
-      const playPauseBtn = document.getElementById('playPauseBtn');
-      const playSpeed = document.getElementById('playSpeed');
-      const bargeFilter = document.getElementById('bargeFilter');
- 
-      if (!timeSlider || !playPauseBtn || !playSpeed || !bargeFilter) {
-        console.error('One or more control elements not found');
-        return;
-      }
- 
-      timeSlider.min = 0;
-      timeSlider.max = uniqueTimes.length - 1;
-      timeSlider.value = 0;
- 
-      timeSlider.addEventListener('input', (e) => {
-        currentTimeIndex = parseInt(e.target.value);
+      const slider = document.getElementById('timeSlider');
+      slider.min = 0; slider.max = uniqueTimes.length - 1; slider.value = 0;
+      slider.addEventListener('input', e => {
+        currentTimeIndex = +e.target.value;
         updateMapForTime(currentTimeIndex);
-        if (isPlaying) {
-          stopAnimation();
-        }
+        if (isPlaying) stopAnimation();
       });
- 
-      playPauseBtn.addEventListener('click', () => {
-        if (isPlaying) {
-          stopAnimation();
-        } else {
-          startAnimation();
-        }
-      });
- 
-      bargeFilter.addEventListener('change', (e) => {
-        selectedBarge = e.target.value;
-        updateMapForTime(currentTimeIndex);
-      });
+      document.getElementById('playPauseBtn').onclick = () => isPlaying ? stopAnimation() : startAnimation();
+      document.getElementById('bargeFilter').onchange = e => { selectedBarge = e.target.value; updateMapForTime(currentTimeIndex); };
+      document.getElementById('toggleStorms').onchange = () => updateMapForTime(currentTimeIndex);
     }
- 
-    function startAnimation() {
-      isPlaying = true;
-      document.getElementById('playPauseBtn').textContent = '⏸ Pause';
-      animate();
-    }
- 
-    function stopAnimation() {
-      isPlaying = false;
-      document.getElementById('playPauseBtn').textContent = '▶️ Play';
-      if (animationTimeout) {
-        clearTimeout(animationTimeout);
-      }
-    }
- 
+
+    function startAnimation() { isPlaying = true; document.getElementById('playPauseBtn').textContent = 'Pause'; animate(); }
+    function stopAnimation() { isPlaying = false; document.getElementById('playPauseBtn').textContent = 'Play'; clearTimeout(animationTimeout); }
     function animate() {
-      if (!isPlaying) return;
- 
-      if (currentTimeIndex < uniqueTimes.length - 1) {
-        currentTimeIndex++;
-        updateMapForTime(currentTimeIndex);
-       
-        const speed = parseInt(document.getElementById('playSpeed').value);
-        animationTimeout = setTimeout(animate, speed);
-      } else {
-        stopAnimation();
-      }
+      if (!isPlaying || currentTimeIndex >= uniqueTimes.length - 1) return stopAnimation();
+      currentTimeIndex++;
+      updateMapForTime(currentTimeIndex);
+      animationTimeout = setTimeout(animate, +document.getElementById('playSpeed').value);
     }
- 
-    // Initialize the application
-    loadData()
-      .then(data => {
-        const result = processData(data);
-        currentData = result.processedData;
-        setupControls();
-        updateMapForTime(0);
-        console.log('Barge tracker initialized successfully');
-      })
-      .catch(error => {
-        console.error('Error initializing barge tracker:', error);
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message';
-        errorDiv.innerHTML = `Error loading data: ${error.message}<br>Please check that your barge_data.json file exists and is properly formatted.`;
-        document.body.insertBefore(errorDiv, document.getElementById('map'));
-      });
+
+    // === INIT ===
+    loadData().then(([bargeRaw, stormJSON]) => {
+      const { processedBarge } = processData(bargeRaw, stormJSON);
+      currentData = processedBarge;
+      setupControls();
+      updateMapForTime(0);
+      console.log('Tracker ready: storms vanish when over');
+    }).catch(err => {
+      document.body.innerHTML += `<div style="color:red;padding:20px;">Error: ${err.message}</div>`;
+    });
   </script>
 </body>
 </html>
