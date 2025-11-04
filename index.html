@@ -50,7 +50,7 @@
   <script>
     // === GLOBALS ===
     const colors = ['#E74C3C', '#5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
-    let currentData = [], stormData = { points: {}, lines: {} };
+    let currentData = [], stormData = { points: {} };  // No lines
     let uniqueTimes = [];
     let bargeMarkers = {}, bargePaths = {};
     let stormPaths = {};  // Only lines
@@ -111,22 +111,6 @@
       });
       Object.values(stormData.points).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
 
-      // === AUTO-GENERATE STORM LINES ===
-      Object.keys(stormData.points).forEach(name => {
-        const pts = stormData.points[name];
-        if (pts.length < 2) return;
-        stormData.lines[name] = [];
-        for (let i = 0; i < pts.length - 1; i++) {
-          const curr = pts[i];
-          const next = pts[i + 1];
-          stormData.lines[name].push({
-            time: next.time,
-            coords: [[curr.lon, curr.lat], [next.lon, next.lat]],
-            color: curr.color
-          });
-        }
-      });
-
       // === TIME MERGING ===
       const allTimes = new Set();
       processedBarge.forEach(d => allTimes.add(d.Timestamp));
@@ -153,7 +137,7 @@
       legend.innerHTML = '';
       barges.forEach(b => {
         const s = document.createElement('span');
-        s.innerHTML = `<span style="color: ${colorDict[b]}; font-weight: bold;">■ ${b}</span>`;
+        s.innerHTML = `<span style="color: ${colorDict[b]}; font-weight: bold;">Barge: ${b}</span>`;
         legend.appendChild(s);
       });
 
@@ -178,7 +162,7 @@
 
       // === STORM LINES ONLY ===
       Object.keys(stormData.points).forEach(name => {
-        stormPaths[name] = L.polyline([], { weight: 4, opacity: 0.8 }).addTo(map);
+        stormPaths[name] = L.polyline([], { weight: 4, opacity: 0.9 }).addTo(map);
       });
 
       // === STORM LEGEND ===
@@ -233,21 +217,23 @@
         }
       });
 
-      // === UPDATE STORM LINES ONLY ===
+      // === UPDATE STORM LINES ONLY (CUMULATIVE FROM POINTS) ===
       const showStorms = document.getElementById('toggleStorms').checked;
       Object.keys(stormPaths).forEach(name => {
         const path = stormPaths[name];
-        const lines = stormData.lines[name] || [];
+        const points = stormData.points[name] || [];
 
-        const visibleLines = lines.filter(l => new Date(l.time) <= now);
-        const pathCoords = visibleLines.flatMap(l => l.coords);
+        const visiblePoints = points
+          .filter(p => new Date(p.time) <= now)
+          .sort((a, b) => new Date(a.time) - new Date(b.time));
 
-        if (showStorms && pathCoords.length > 0) {
-          path.setLatLngs(pathCoords);
-          const lastSegment = visibleLines[visibleLines.length - 1];
-          path.setStyle({ color: lastSegment.color, opacity: 0.8 });
+        if (showStorms && visiblePoints.length > 1) {
+          const coords = visiblePoints.map(p => [p.lat, p.lon]);
+          path.setLatLngs(coords);
+          const lastPoint = visiblePoints[visiblePoints.length - 1];
+          path.setStyle({ color: lastPoint.color, weight: 4, opacity: 0.9 });
         } else {
-          path.setStyle({ opacity: 0 });
+          path.setLatLngs([]);
         }
       });
 
