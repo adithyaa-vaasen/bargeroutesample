@@ -38,6 +38,12 @@
       </select>
     </label>
     <label>
+      Hurricane Season:
+      <select id="seasonFilter">
+        <option value="all">All Seasons</option>
+      </select>
+    </label>
+    <label>
       <input type="checkbox" id="toggleStorms" checked> Show Storms
     </label>
     <input type="range" id="timeSlider" style="width: 300px;" />
@@ -49,12 +55,12 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     // === GLOBALS ===
-    const colors = ['#E74C3C', '#5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
+    const colors = ['#E74C3C', '# #5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
     let currentData = [], stormData = { points: {}, metadata: {} };
     let uniqueTimes = [];
     let bargeMarkers = {}, bargePaths = {}, stormSegmentGroups = {};
     let isPlaying = false, currentTimeIndex = 0, animationTimeout;
-    let selectedBarge = 'all';
+    let selectedBarge = 'all', selectedSeason = 'all';
 
     // === MAP SETUP ===
     const map = L.map('map', { zoomControl: false });
@@ -97,17 +103,20 @@
       const colorDict = {};
       barges.forEach((b, i) => colorDict[b] = colors[i % colors.length]);
 
-      // === STORM DATA ===
+      // === STORM DATA + SEASONS ===
       const features = stormJSON.features || [];
-      console.log('Storm features:', features.length);
+      const seasons = new Set();
 
       features.forEach(f => {
         const p = f.properties;
         const sid = p.SID;
         if (!sid) return;
 
+        const sid4 = sid.substring(0, 4);
+        seasons.add(sid4);
+
         if (!stormData.metadata[sid]) {
-          stormData.metadata[sid] = { name: p.name, year: new Date(p.time).getUTCFullYear() };
+          stormData.metadata[sid] = { name: p.name, year: parseInt(sid4) };
         }
         if (!stormData.points[sid]) stormData.points[sid] = [];
 
@@ -162,11 +171,20 @@
         legend.innerHTML += `<span style="color:${colorDict[b]};font-weight:bold;">Barge: ${b}</span> `;
       });
 
-      const filter = document.getElementById('bargeFilter');
+      const bargeFilter = document.getElementById('bargeFilter');
       barges.forEach(b => {
         const opt = document.createElement('option');
         opt.value = b; opt.textContent = b;
-        filter.appendChild(opt);
+        bargeFilter.appendChild(opt);
+      });
+
+      // === SEASON FILTER ===
+      const seasonFilter = document.getElementById('seasonFilter');
+      const sortedSeasons = Array.from(seasons).sort();
+      sortedSeasons.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s; opt.textContent = s;
+        seasonFilter.appendChild(opt);
       });
 
       // === MARKERS & PATHS ===
@@ -209,7 +227,7 @@
       };
       legendCtrl.addTo(map);
 
-      return { processedBarge, barges, colorDict };
+      return { processedBarge, barges, colorDict, sortedSeasons };
     }
 
     // === UPDATE MAP ===
@@ -252,12 +270,19 @@
         }
       });
 
-      // === UPDATE STORMS (REMOVE WHEN OVER) ===
+      // === UPDATE STORMS (FILTER BY SEASON) ===
       const showStorms = document.getElementById('toggleStorms').checked;
       Object.keys(stormSegmentGroups).forEach(sid => {
         const group = stormSegmentGroups[sid];
         const points = stormData.points[sid] || [];
         const meta = stormData.metadata[sid];
+        const sid4 = sid.substring(0, 4);
+
+        // Filter by season
+        if (selectedSeason !== 'all' && sid4 !== selectedSeason) {
+          group.clearLayers();
+          return;
+        }
 
         const lastPointTime = points.length > 0 ? new Date(points[points.length - 1].time) : null;
         const stormEnded = lastPointTime && now > lastPointTime;
@@ -275,7 +300,7 @@
             color: curr.color, weight: 4, opacity: 0.9
           });
           seg.bindTooltip(
-            `<strong>${meta.name} (${sid.substring(0,4)})</strong><br>` +
+            `<strong>${meta.name} (${sid4})</strong><br>` +
             `SID: ${sid}<br>` +
             `Date: ${new Date(curr.time).toLocaleDateString()}<br>` +
             `Wind: ${curr.wind} kt`,
@@ -300,6 +325,7 @@
       });
       document.getElementById('playPauseBtn').onclick = () => isPlaying ? stopAnimation() : startAnimation();
       document.getElementById('bargeFilter').onchange = e => { selectedBarge = e.target.value; updateMapForTime(currentTimeIndex); };
+      document.getElementById('seasonFilter').onchange = e => { selectedSeason = e.target.value; updateMapForTime(currentTimeIndex); };
       document.getElementById('toggleStorms').onchange = () => updateMapForTime(currentTimeIndex);
     }
 
@@ -318,7 +344,7 @@
       currentData = processedBarge;
       setupControls();
       updateMapForTime(0);
-      console.log('Tracker ready: storms vanish when over');
+      console.log('Tracker ready: season filter by SID4');
     }).catch(err => {
       document.body.innerHTML += `<div style="color:red;padding:20px;">Error: ${err.message}</div>`;
     });
