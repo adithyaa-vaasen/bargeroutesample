@@ -65,39 +65,21 @@
     }).addTo(map);
     L.control.zoom({ position: 'topright' }).addTo(map);
 
-    // === DATA LOADING (ROBUST) ===
+    // === DATA LOADING ===
     function loadData() {
       return Promise.all([
         fetch('/barge_data.json')
-          .then(r => {
-            if (!r.ok) {
-              console.warn('barge_data.json not found:', r.status);
-              return [];
-            }
-            return r.json();
-          })
-          .catch(err => {
-            console.warn('Fetch barge_data.json failed:', err);
-            return [];
-          }),
+          .then(r => r.ok ? r.json() : [])
+          .catch(() => []),
         fetch('/storms_2027.json')
-          .then(r => {
-            if (!r.ok) {
-              console.warn('storms_2027.json not found:', r.status);
-              return { points: [], lines: [] };
-            }
-            return r.json();
-          })
-          .catch(err => {
-            console.warn('Fetch storms_2027.json failed:', err);
-            return { points: [], lines: [] };
-          })
+          .then(r => r.ok ? r.json() : { type: "FeatureCollection", features: [] })
+          .catch(() => ({ type: "FeatureCollection", features: [] }))
       ]);
     }
 
-    function processData(bargeRaw = [], stormJSON = { points: [], lines: [] }) {
-      console.log('RAW DATA → Barge:', Array.isArray(bargeRaw) ? bargeRaw.length : 'NOT ARRAY', 
-                  '| Storm points:', stormJSON.points?.length || 0);
+    function processData(bargeRaw = [], stormJSON = { features: [] }) {
+      console.log('Barge:', Array.isArray(bargeRaw) ? bargeRaw.length : 0, 
+                  'Storm features:', stormJSON.features?.length || 0);
 
       // === BARGE DATA ===
       const processedBarge = (Array.isArray(bargeRaw) ? bargeRaw : [])
@@ -110,34 +92,39 @@
       barges.forEach((b, i) => colorDict[b] = colors[i % colors.length]);
 
       // === STORM DATA ===
-      stormJSON.points.forEach(f => {
-        const name = f.properties.name;
+      const points = (stormJSON.features || []).filter(f => f.properties?.type === 'point');
+      const lines = (stormJSON.features || []).filter(f => f.properties?.type === 'line');
+
+      points.forEach(f => {
+        const p = f.properties;
+        const name = p.name;
         if (!stormData.points[name]) stormData.points[name] = [];
         stormData.points[name].push({
-          time: f.properties.time,
+          time: p.time,
           lat: f.geometry.coordinates[1],
           lon: f.geometry.coordinates[0],
-          category: f.properties.category,
-          wind: f.properties.wind,
-          color: f.properties.color
+          category: p.category,
+          wind: p.wind,
+          color: p.color
         });
       });
       Object.values(stormData.points).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
 
-      stormJSON.lines.forEach(f => {
-        const name = f.properties.name;
+      lines.forEach(f => {
+        const p = f.properties;
+        const name = p.name;
         if (!stormData.lines[name]) stormData.lines[name] = [];
         stormData.lines[name].push({
-          time: f.properties.time,
+          time: p.time,
           coords: f.geometry.coordinates,
-          color: f.properties.color
+          color: p.color
         });
       });
 
       // === TIME MERGING + CENTERING ===
       const allTimes = new Set();
       processedBarge.forEach(d => allTimes.add(d.Timestamp));
-      stormJSON.points.forEach(f => allTimes.add(f.properties.time));
+      points.forEach(f => allTimes.add(f.properties.time));
       uniqueTimes = Array.from(allTimes).sort();
       if (uniqueTimes.length > 0) {
         const last = new Date(uniqueTimes[uniqueTimes.length - 1]);
