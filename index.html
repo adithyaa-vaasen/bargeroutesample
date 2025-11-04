@@ -189,9 +189,22 @@
       const legendCtrl = L.control({ position: 'bottomleft' });
       legendCtrl.onAdd = () => {
         const div = L.DomUtil.create('div', 'storm-legend');
-        div.innerHTML = '<strong>Storm Intensity</strong><br>' +
-          'Non-TD: #E2ECE2<br>TD: #00FF00<br>TS: #FFFF00<br>Cat 1: #FFA500<br>Cat 2: #FF6347<br>Cat 3: #FF0000<br>Cat 4: #FF1493<br>Cat 5: #8B008B'
-            .replace(/#([0-9A-F]{6})/g, '<i style="background:$1;width:12px;height:12px;display:inline-block;margin-right:5px;"></i>');
+        const categories = [
+          { name: 'Non-TD', color: '#E2ECE2' },
+          { name: 'TD',     color: '#00FF00' },
+          { name: 'TS',     color: '#FFFF00' },
+          { name: 'Cat 1',  color: '#FFA500' },
+          { name: 'Cat 2',  color: '#FF6347' },
+          { name: 'Cat 3',  color: '#FF0000' },
+          { name: 'Cat 4',  color: '#FF1493' },
+          { name: 'Cat 5',  color: '#8B008B' }
+        ];
+
+        let html = '<strong>Storm Intensity</strong><br>';
+        categories.forEach(c => {
+          html += `<i style="background:${c.color};width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:6px;border:1px solid #666;"></i> ${c.name}<br>`;
+        });
+        div.innerHTML = html;
         return div;
       };
       legendCtrl.addTo(map);
