@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barge + Storm Tracker (2027)</title>
+  <title>Barge + Hurricane Tracker (2027)</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     body { margin: 0; font-family: Arial, sans-serif; }
@@ -18,8 +18,8 @@
 </head>
 <body>
   <div class="header">
-    <h2>Barge & Storm Tracker (2027)</h2>
-    <span>Slide through dates to view barge movements and hurricane positions</span>
+    <h2>Barge & Hurricane Tracker (2027)</h2>
+    <span>Slide through time to view barge routes and hurricane tracks</span>
   </div>
   <div class="controls">
     <button id="playPauseBtn">Play</button>
@@ -51,10 +51,10 @@
   <script>
     // === GLOBALS ===
     const colors = ['#E74C3C', '#5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
-    let currentData = [], stormData = [];
+    let currentData = [], stormData = { points: {}, lines: {} };
     let uniqueTimes = [];
     let bargeMarkers = {}, bargePaths = {};
-    let stormMarkers = {};
+    let stormMarkers = {}, stormPaths = {};
     let isPlaying = false, currentTimeIndex = 0, animationTimeout;
     let selectedBarge = 'all';
 
@@ -69,12 +69,12 @@
     function loadData() {
       return Promise.all([
         fetch('/barge_data.json').then(r => r.json()).catch(() => []),
-        fetch('/storms_2027.json').then(r => r.json()).catch(() => ({ features: [] }))
+        fetch('/storms_2027.json').then(r => r.json()).catch(() => ({ points: [], lines: [] }))
       ]);
     }
 
-    function processData(bargeRaw, stormGeoJSON) {
-      console.log('Barge records:', bargeRaw.length, 'Storm points:', stormGeoJSON.features.length);
+    function processData(bargeRaw, stormJSON) {
+      console.log('Barge:', bargeRaw.length, 'Storm points:', stormJSON.points.length, 'lines:', stormJSON.lines.length);
 
       // === BARGE DATA ===
       const processedBarge = bargeRaw
@@ -87,32 +87,45 @@
       barges.forEach((b, i) => colorDict[b] = colors[i % colors.length]);
 
       // === STORM DATA ===
-      const storms = {};
-      stormGeoJSON.features.forEach(f => {
-        const t = f.properties.time;
+      stormJSON.points.forEach(f => {
         const name = f.properties.name;
-        if (!storms[name]) storms[name] = [];
-        storms[name].push({ ...f.properties, lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0] });
+        if (!stormData.points[name]) stormData.points[name] = [];
+        stormData.points[name].push({
+          time: f.properties.time,
+          lat: f.geometry.coordinates[1],
+          lon: f.geometry.coordinates[0],
+          category: f.properties.category,
+          wind: f.properties.wind,
+          color: f.properties.color
+        });
       });
-      Object.values(storms).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
+      Object.values(stormData.points).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
 
-      // === TIME MERGING + MAP CENTERING ===
+      stormJSON.lines.forEach(f => {
+        const name = f.properties.name;
+        if (!stormData.lines[name]) stormData.lines[name] = [];
+        stormData.lines[name].push({
+          time: f.properties.time,
+          coords: f.geometry.coordinates,
+          color: f.properties.color
+        });
+      });
+
+      // === TIME MERGING + CENTERING ===
       const allTimes = new Set();
       processedBarge.forEach(d => allTimes.add(d.Timestamp));
-      stormGeoJSON.features.forEach(f => allTimes.add(f.properties.time));
+      stormJSON.points.forEach(f => allTimes.add(f.properties.time));
       uniqueTimes = Array.from(allTimes).sort();
-
       if (uniqueTimes.length > 0) {
         const last = new Date(uniqueTimes[uniqueTimes.length - 1]);
         last.setDate(last.getDate() + 1);
         uniqueTimes.push(last.toISOString());
       }
 
-      // CENTER MAP ON BARGES
-      const validPoints = processedBarge.filter(d => d.Latitude && d.Longitude);
-      if (validPoints.length > 0) {
-        const avgLat = validPoints.reduce((s, d) => s + d.Latitude, 0) / validPoints.length;
-        const avgLon = validPoints.reduce((s, d) => s + d.Longitude, 0) / validPoints.length;
+      const valid = processedBarge.filter(d => d.Latitude && d.Longitude);
+      if (valid.length > 0) {
+        const avgLat = valid.reduce((s, d) => s + d.Latitude, 0) / valid.length;
+        const avgLon = valid.reduce((s, d) => s + d.Longitude, 0) / valid.length;
         map.setView([avgLat, avgLon], 5);
       } else {
         map.setView([30, -90], 3);
@@ -127,7 +140,6 @@
         legend.appendChild(s);
       });
 
-      // === FILTER DROPDOWN ===
       const filter = document.getElementById('bargeFilter');
       barges.forEach(b => {
         const opt = document.createElement('option');
@@ -135,7 +147,7 @@
         filter.appendChild(opt);
       });
 
-      // === INITIALIZE MARKERS ===
+      // === MARKERS & PATHS ===
       barges.forEach(b => {
         bargeMarkers[b] = L.marker([0, 0], {
           icon: L.divIcon({
@@ -147,10 +159,11 @@
         bargePaths[b] = L.polyline([], { color: colorDict[b], weight: 3, opacity: 0.6 }).addTo(map);
       });
 
-      Object.keys(storms).forEach(name => {
+      Object.keys(stormData.points).forEach(name => {
         stormMarkers[name] = L.circleMarker([0, 0], {
           radius: 7, fillColor: '#888', color: '#000', weight: 1, fillOpacity: 0.9
         });
+        stormPaths[name] = L.polyline([], { weight: 3, opacity: 0.7 }).addTo(map);
       });
 
       // === STORM LEGEND ===
@@ -170,7 +183,7 @@
       };
       legendCtrl.addTo(map);
 
-      return { processedBarge, barges, colorDict, storms };
+      return { processedBarge, barges, colorDict };
     }
 
     function updateMapForTime(timeIndex) {
@@ -204,22 +217,31 @@
         }
       });
 
-      // === UPDATE STORMS ===
+      // === UPDATE HURRICANES ===
       const showStorms = document.getElementById('toggleStorms').checked;
       Object.keys(stormMarkers).forEach(name => {
         const marker = stormMarkers[name];
-        const points = stormData[name] || [];
-        const active = points.find(p => new Date(p.time) <= now);
-        const future = points.some(p => new Date(p.time) > now);
+        const path = stormPaths[name];
+        const points = stormData.points[name] || [];
+        const lines = stormData.lines[name] || [];
 
-        if (showStorms && active && !future) {
-          marker.setLatLng([active.lat, active.lon]).addTo(map);
-          marker.setStyle({ fillColor: active.color });
-          marker.bindTooltip(`${name}<br>${active.category}${active.wind ? `<br>Wind: ${active.wind} kt` : ''}`, {
+        const activePoint = points.find(p => new Date(p.time) <= now);
+        const hasFuture = points.some(p => new Date(p.time) > now);
+
+        const visibleLines = lines.filter(l => new Date(l.time) <= now);
+        const pathCoords = visibleLines.map(l => l.coords).flat();
+
+        if (showStorms && activePoint && !hasFuture) {
+          marker.setLatLng([activePoint.lat, activePoint.lon]).addTo(map);
+          marker.setStyle({ fillColor: activePoint.color });
+          marker.bindTooltip(`${name}<br>${activePoint.category}${activePoint.wind ? `<br>Wind: ${activePoint.wind} kt` : ''}`, {
             direction: 'top', offset: [0, -10]
           });
+          path.setLatLngs(pathCoords);
+          path.setStyle({ color: activePoint.color, opacity: 0.7 });
         } else {
           if (map.hasLayer(marker)) map.removeLayer(marker);
+          path.setStyle({ opacity: 0 });
         }
       });
 
@@ -273,19 +295,18 @@
 
     // === INIT ===
     loadData()
-      .then(([bargeRaw, stormGeoJSON]) => {
-        const { processedBarge, barges, colorDict, storms } = processData(bargeRaw, stormGeoJSON);
+      .then(([bargeRaw, stormJSON]) => {
+        const { processedBarge } = processData(bargeRaw, stormJSON);
         currentData = processedBarge;
-        stormData = storms;
         setupControls();
         updateMapForTime(0);
-        console.log('Tracker initialized with barges and storms');
+        console.log('Tracker initialized with barge + hurricane tracks');
       })
       .catch(err => {
         console.error('Init error:', err);
         const div = document.createElement('div');
         div.className = 'error-message';
-        div.innerHTML = `Error: ${err.message}<br>Check barge_data.json and storms_2027.json`;
+        div.innerHTML = `Error: ${err.message}`;
         document.body.insertBefore(div, document.getElementById('map'));
       });
   </script>
