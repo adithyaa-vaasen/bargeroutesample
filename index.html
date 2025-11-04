@@ -69,17 +69,35 @@
     function loadData() {
       return Promise.all([
         fetch('/barge_data.json')
-          .then(r => r.ok ? r.json() : [])
-          .catch(() => []),
+          .then(r => {
+            if (!r.ok) {
+              console.warn('barge_data.json not found:', r.status);
+              return [];
+            }
+            return r.json();
+          })
+          .catch(err => {
+            console.warn('Fetch barge_data.json failed:', err);
+            return [];
+          }),
         fetch('/storms_2027.json')
-          .then(r => r.ok ? r.json() : { points: [], lines: [] })
-          .catch(() => ({ points: [], lines: [] }))
+          .then(r => {
+            if (!r.ok) {
+              console.warn('storms_2027.json not found:', r.status);
+              return { points: [], lines: [] };
+            }
+            return r.json();
+          })
+          .catch(err => {
+            console.warn('Fetch storms_2027.json failed:', err);
+            return { points: [], lines: [] };
+          })
       ]);
     }
 
     function processData(bargeRaw = [], stormJSON = { points: [], lines: [] }) {
-      console.log('Barge:', Array.isArray(bargeRaw) ? bargeRaw.length : 0, 
-                  'Storm points:', stormJSON.points.length, 'lines:', stormJSON.lines.length);
+      console.log('RAW DATA → Barge:', Array.isArray(bargeRaw) ? bargeRaw.length : 'NOT ARRAY', 
+                  '| Storm points:', stormJSON.points?.length || 0);
 
       // === BARGE DATA ===
       const processedBarge = (Array.isArray(bargeRaw) ? bargeRaw : [])
