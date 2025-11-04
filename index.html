@@ -17,8 +17,8 @@
 </head>
 <body>
   <div class="header">
-    <h2>Barge & Storm Tracker (2015–2025 → 2027)</h2>
-    <span>Historical hurricanes (2015–2025) replayed in 2027 | Hover for SID, Name, Wind</span>
+    <h2>Barge & Storm Tracker</h2>
+    <span>Historical storms (2015–2025) replayed in 2027 | Intensity-colored segments</span>
   </div>
   <div class="controls">
     <button id="playPauseBtn">Play</button>
@@ -46,11 +46,11 @@
   </div>
   <div id="map"></div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     // === GLOBALS ===
     const colors = ['#E74C3C', '#5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
-    let currentData = [], stormData = { points: {}, metadata: {} };
+    let currentData = [], stormData = { points: {} };
     let uniqueTimes = [];
     let bargeMarkers = {}, bargePaths = {};
     let stormSegmentGroups = {};
@@ -64,16 +64,16 @@
     }).addTo(map);
     L.control.zoom({ position: 'topright' }).addTo(map);
 
-    // === INTENSITY → COLOR ===
+    // === INTENSITY → COLOR (EXACTLY LIKE YOUR PYTHON) ===
     function getStormColor(wind) {
-      if (!wind || wind < 34) return "#E2ECE2";
-      if (wind < 39) return "#00FF00";
-      if (wind < 64) return "#FFFF00";
-      if (wind < 83) return "#FFA500";
-      if (wind < 96) return "#FF6347";
-      if (wind < 113) return "#FF0000";
-      if (wind < 137) return "#FF1493";
-      return "#8B008B";
+      if (!wind || wind < 34) return "#E2ECE2";  // Non-TD
+      if (wind < 39) return "#00FF00";          // TD
+      if (wind < 64) return "#FFFF00";          // TS
+      if (wind < 83) return "#FFA500";          // Cat 1
+      if (wind < 96) return "#FF6347";          // Cat 2
+      if (wind < 113) return "#FF0000";         // Cat 3
+      if (wind < 137) return "#FF1493";         // Cat 4
+      return "#8B008B";                         // Cat 5
     }
 
     // === SAFE DATA LOADING ===
@@ -81,16 +81,20 @@
       return Promise.all([
         fetch('/barge_data.json')
           .then(r => r.ok ? r.json() : [])
-          .catch(() => []),
+          .catch(err => { console.error('Barge fetch failed:', err); return []; }),
         fetch('/storms_2027.json')
-          .then(r => r.ok ? r.json() : [])
-          .catch(() => [])
+          .then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+          })
+          .catch(err => { console.error('Storm fetch failed:', err); return []; })
       ]);
     }
 
     // === PROCESS DATA ===
     function processData(bargeRaw = [], stormJSON = []) {
       console.log('Barge records:', Array.isArray(bargeRaw) ? bargeRaw.length : 0);
+      console.log('Storm JSON type:', stormJSON ? (stormJSON.type || 'array') : 'null');
 
       // === BARGE DATA ===
       const processedBarge = (Array.isArray(bargeRaw) ? bargeRaw : [])
@@ -102,49 +106,56 @@
       const colorDict = {};
       barges.forEach((b, i) => colorDict[b] = colors[i % colors.length]);
 
-      // === STORM POINTS (USE SID AS KEY) ===
+      // === STORM POINTS (USE NAME + TIME AS KEY) ===
       let features = [];
       if (Array.isArray(stormJSON)) features = stormJSON;
-      else if (stormJSON.features) features = stormJSON.features;
+      else if (stormJSON && stormJSON.features) features = stormJSON.features;
+      else console.warn('No valid storm features found');
 
       const points = features.filter(f => f.geometry?.type === 'Point');
-      console.log('Storm points (2015–2025):', points.length);
+      console.log('Raw storm points:', points.length);
 
       points.forEach(f => {
         const p = f.properties;
-        const sid = p.SID;
-        const name = p.name;
-        const year = new Date(p.time).getUTCFullYear();
+        const name = p.name || 'Unknown';
+        const time = p.time;
+        const wind = p.wind;
 
-        if (!sid) return;
+        if (!time) return;
 
-        // Store metadata
-        if (!stormData.metadata[sid]) {
-          stormData.metadata[sid] = { name, year };
+        const key = `${name}_${time}`;  // Unique per point
+        if (!stormData.points[key]) {
+          stormData.points[key] = {
+            name,
+            time: time,
+            lat: f.geometry.coordinates[1],
+            lon: f.geometry.coordinates[0],
+            wind: wind,
+            color: getStormColor(wind)
+          };
         }
-
-        if (!stormData.points[sid]) stormData.points[sid] = [];
-
-        stormData.points[sid].push({
-          time: p.time,
-          lat: f.geometry.coordinates[1],
-          lon: f.geometry.coordinates[0],
-          wind: p.wind,
-          color: getStormColor(p.wind)
-        });
       });
 
-      // Sort points by time
-      Object.values(stormData.points).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
+      // Group by storm name and sort
+      const storms = {};
+      Object.values(stormData.points).forEach(pt => {
+        if (!storms[pt.name]) storms[pt.name] = [];
+        storms[pt.name].push(pt);
+      });
+      Object.keys(storms).forEach(name => {
+        storms[name].sort((a, b) => new Date(a.time) - new Date(b.time));
+      });
 
-      // === REBASE ALL STORMS TO 2027 ===
+      // Rebuild stormData.points as array per storm
+      stormData.points = storms;
+
+      // === REBASE TO 2027 ===
       const rebaseYear = 2027;
-      Object.keys(stormData.points).forEach(sid => {
-        const meta = stormData.metadata[sid];
-        const originalYear = meta.year;
-        const offset = rebaseYear - originalYear;
-
-        stormData.points[sid].forEach(p => {
+      Object.keys(stormData.points).forEach(name => {
+        const pts = stormData.points[name];
+        const firstYear = new Date(pts[0].time).getUTCFullYear();
+        const offset = rebaseYear - firstYear;
+        pts.forEach(p => {
           const d = new Date(p.time);
           d.setUTCFullYear(d.getUTCFullYear() + offset);
           p.time = d.toISOString();
@@ -154,18 +165,8 @@
       // === TIME MERGING ===
       const allTimes = new Set();
       processedBarge.forEach(d => allTimes.add(d.Timestamp));
-      points.forEach(f => {
-        const sid = f.properties.SID;
-        if (sid && stormData.points[sid]) {
-          stormData.points[sid].forEach(p => allTimes.add(p.time));
-        }
-      });
+      Object.values(stormData.points).flat().forEach(p => allTimes.add(p.time));
       uniqueTimes = Array.from(allTimes).sort();
-      if (uniqueTimes.length > 0) {
-        const last = new Date(uniqueTimes[uniqueTimes.length - 1]);
-        last.setDate(last.getDate() + 1);
-        uniqueTimes.push(last.toISOString());
-      }
 
       // === CENTER MAP ===
       const valid = processedBarge.filter(d => d.Latitude && d.Longitude);
@@ -205,9 +206,9 @@
         bargePaths[b] = L.polyline([], { color: colorDict[b], weight: 3, opacity: 0.6 }).addTo(map);
       });
 
-      // === STORM SEGMENT GROUPS (by SID) ===
-      Object.keys(stormData.points).forEach(sid => {
-        stormSegmentGroups[sid] = L.featureGroup().addTo(map);
+      // === STORM SEGMENT GROUPS (by name) ===
+      Object.keys(stormData.points).forEach(name => {
+        stormSegmentGroups[name] = L.featureGroup().addTo(map);
       });
 
       // === STORM LEGEND ===
@@ -262,12 +263,11 @@
         }
       });
 
-      // === UPDATE STORM SEGMENTS (by SID) ===
+      // === UPDATE STORM SEGMENTS (INTENSITY-COLORED) ===
       const showStorms = document.getElementById('toggleStorms').checked;
-      Object.keys(stormSegmentGroups).forEach(sid => {
-        const group = stormSegmentGroups[sid];
-        const points = stormData.points[sid] || [];
-        const meta = stormData.metadata[sid] || { name: sid, year: '????' };
+      Object.keys(stormSegmentGroups).forEach(name => {
+        const group = stormSegmentGroups[name];
+        const points = stormData.points[name] || [];
 
         const visiblePoints = points
           .filter(p => new Date(p.time) <= now)
@@ -285,8 +285,7 @@
             { color: curr.color, weight: 4, opacity: 0.9 }
           );
           segment.bindTooltip(
-            `<strong>${meta.name} (${meta.year})</strong><br>` +
-            `SID: ${sid}<br>` +
+            `<strong>${name}</strong><br>` +
             `Date: ${new Date(curr.time).toLocaleDateString()}<br>` +
             `Wind: ${curr.wind} kt`,
             { sticky: true }
@@ -350,13 +349,13 @@
         currentData = processedBarge;
         setupControls();
         updateMapForTime(0);
-        console.log('Tracker initialized: 10 years of storms (2015–2025) in 2027');
+        console.log('Tracker initialized: barges + intensity-colored storm segments');
       })
       .catch(err => {
         console.error('Init error:', err);
         const div = document.createElement('div');
         div.className = 'error-message';
-        div.innerHTML = `Error: ${err.message}`;
+        div.innerHTML = `Error loading data: ${err.message}<br>Check console for details.`;
         document.body.insertBefore(div, document.getElementById('map'));
       });
   </script>
