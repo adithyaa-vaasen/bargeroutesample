@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barge + Storm Tracker (2027)</title>
+  <title>Barge + Storm Tracker (2015–2025 → 2027)</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     body { margin: 0; font-family: Arial, sans-serif; }
@@ -17,8 +17,8 @@
 </head>
 <body>
   <div class="header">
-    <h2>Barge & Storm Tracker (2027)</h2>
-    <span>Slide through time to watch barge routes and storm tracks grow (intensity-colored segments)</span>
+    <h2>Barge & Storm Tracker (2015–2025 → 2027)</h2>
+    <span>Historical hurricanes (2015–2025) replayed in 2027 | Hover for SID, Name, Wind</span>
   </div>
   <div class="controls">
     <button id="playPauseBtn">Play</button>
@@ -50,10 +50,10 @@
   <script>
     // === GLOBALS ===
     const colors = ['#E74C3C', '#5DADE2', '#4CA61C', '#161CB0', '#FFA500', '#800080', '#FF69B4', '#A52A2A', '#00CED1', '#228B22', '#4682B4', '#FFD700'];
-    let currentData = [], stormData = { points: {} };
+    let currentData = [], stormData = { points: {}, metadata: {} };
     let uniqueTimes = [];
     let bargeMarkers = {}, bargePaths = {};
-    let stormSegmentGroups = {};  // One group per storm
+    let stormSegmentGroups = {};
     let isPlaying = false, currentTimeIndex = 0, animationTimeout;
     let selectedBarge = 'all';
 
@@ -82,7 +82,7 @@
         fetch('/barge_data.json')
           .then(r => r.ok ? r.json() : [])
           .catch(() => []),
-        fetch('/storms_2027.json')
+        fetch('/storms_2015_2025.json')
           .then(r => r.ok ? r.json() : [])
           .catch(() => [])
       ]);
@@ -96,25 +96,36 @@
       const processedBarge = (Array.isArray(bargeRaw) ? bargeRaw : [])
         .map(d => ({ ...d, Timestamp: new Date(d.Timestamp).toISOString() }))
         .filter(d => d.Latitude && d.Longitude && d.Latitude !== 0 && d.Longitude !== 0)
-        .sort((a, b) => new Date(a.TimestampbarTimestamp) - new Date(b.Timestamp));
+        .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
 
       const barges = [...new Set(processedBarge.map(d => d['Barge Name']))].sort();
       const colorDict = {};
       barges.forEach((b, i) => colorDict[b] = colors[i % colors.length]);
 
-      // === STORM POINTS ===
+      // === STORM POINTS (USE SID AS KEY) ===
       let features = [];
       if (Array.isArray(stormJSON)) features = stormJSON;
       else if (stormJSON.features) features = stormJSON.features;
 
       const points = features.filter(f => f.geometry?.type === 'Point');
-      console.log('Storm points:', points.length);
+      console.log('Storm points (2015–2025):', points.length);
 
       points.forEach(f => {
         const p = f.properties;
+        const sid = p.SID;
         const name = p.name;
-        if (!stormData.points[name]) stormData.points[name] = [];
-        stormData.points[name].push({
+        const year = new Date(p.time).getUTCFullYear();
+
+        if (!sid) return;
+
+        // Store metadata
+        if (!stormData.metadata[sid]) {
+          stormData.metadata[sid] = { name, year };
+        }
+
+        if (!stormData.points[sid]) stormData.points[sid] = [];
+
+        stormData.points[sid].push({
           time: p.time,
           lat: f.geometry.coordinates[1],
           lon: f.geometry.coordinates[0],
@@ -122,12 +133,33 @@
           color: getStormColor(p.wind)
         });
       });
+
+      // Sort points by time
       Object.values(stormData.points).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
+
+      // === REBASE ALL STORMS TO 2027 ===
+      const rebaseYear = 2027;
+      Object.keys(stormData.points).forEach(sid => {
+        const meta = stormData.metadata[sid];
+        const originalYear = meta.year;
+        const offset = rebaseYear - originalYear;
+
+        stormData.points[sid].forEach(p => {
+          const d = new Date(p.time);
+          d.setUTCFullYear(d.getUTCFullYear() + offset);
+          p.time = d.toISOString();
+        });
+      });
 
       // === TIME MERGING ===
       const allTimes = new Set();
       processedBarge.forEach(d => allTimes.add(d.Timestamp));
-      points.forEach(f => allTimes.add(f.properties.time));
+      points.forEach(f => {
+        const sid = f.properties.SID;
+        if (sid && stormData.points[sid]) {
+          stormData.points[sid].forEach(p => allTimes.add(p.time));
+        }
+      });
       uniqueTimes = Array.from(allTimes).sort();
       if (uniqueTimes.length > 0) {
         const last = new Date(uniqueTimes[uniqueTimes.length - 1]);
@@ -173,9 +205,9 @@
         bargePaths[b] = L.polyline([], { color: colorDict[b], weight: 3, opacity: 0.6 }).addTo(map);
       });
 
-      // === STORM SEGMENT GROUPS ===
-      Object.keys(stormData.points).forEach(name => {
-        stormSegmentGroups[name] = L.featureGroup().addTo(map);
+      // === STORM SEGMENT GROUPS (by SID) ===
+      Object.keys(stormData.points).forEach(sid => {
+        stormSegmentGroups[sid] = L.featureGroup().addTo(map);
       });
 
       // === STORM LEGEND ===
@@ -230,22 +262,21 @@
         }
       });
 
-      // === UPDATE STORM SEGMENTS ===
+      // === UPDATE STORM SEGMENTS (by SID) ===
       const showStorms = document.getElementById('toggleStorms').checked;
-      Object.keys(stormSegmentGroups).forEach(name => {
-        const group = stormSegmentGroups[name];
-        const points = stormData.points[name] || [];
+      Object.keys(stormSegmentGroups).forEach(sid => {
+        const group = stormSegmentGroups[sid];
+        const points = stormData.points[sid] || [];
+        const meta = stormData.metadata[sid] || { name: sid, year: '????' };
 
         const visiblePoints = points
           .filter(p => new Date(p.time) <= now)
           .sort((a, b) => new Date(a.time) - new Date(b.time));
 
-        // Clear previous segments
         group.clearLayers();
 
         if (!showStorms || visiblePoints.length < 2) return;
 
-        // Draw each segment with its own color
         for (let i = 0; i < visiblePoints.length - 1; i++) {
           const curr = visiblePoints[i];
           const next = visiblePoints[i + 1];
@@ -253,7 +284,13 @@
             [[curr.lat, curr.lon], [next.lat, next.lon]],
             { color: curr.color, weight: 4, opacity: 0.9 }
           );
-          segment.bindTooltip(`${name}<br>Wind: ${curr.wind} kt`, { sticky: true });
+          segment.bindTooltip(
+            `<strong>${meta.name} (${meta.year})</strong><br>` +
+            `SID: ${sid}<br>` +
+            `Date: ${new Date(curr.time).toLocaleDateString()}<br>` +
+            `Wind: ${curr.wind} kt`,
+            { sticky: true }
+          );
           group.addLayer(segment);
         }
       });
@@ -313,7 +350,7 @@
         currentData = processedBarge;
         setupControls();
         updateMapForTime(0);
-        console.log('Tracker initialized: barges + intensity-colored storm segments');
+        console.log('Tracker initialized: 10 years of storms (2015–2025) in 2027');
       })
       .catch(err => {
         console.error('Init error:', err);
