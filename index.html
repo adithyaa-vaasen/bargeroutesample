@@ -8,7 +8,6 @@
   <style>
     body { margin: 0; font-family: Arial, sans-serif; }
     #map { height: 85vh; }
-    .tooltip { background: white; border: 1px solid #ccc; border-radius: 4px; padding: 5px; }
     .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #f5f5f5; border-bottom: 1px solid #ccc; }
     .controls { padding: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
     .legend { display: flex; gap: 15px; padding: 5px 10px; background: #f5f5f5; border-radius: 4px; font-size: 13px; flex-wrap: wrap; }
@@ -65,23 +64,24 @@
     }).addTo(map);
     L.control.zoom({ position: 'topright' }).addTo(map);
 
-    // === DATA LOADING ===
+    // === SAFE DATA LOADING ===
     function loadData() {
       return Promise.all([
         fetch('/barge_data.json')
           .then(r => r.ok ? r.json() : [])
-          .catch(() => []),
+          .catch(() => { console.warn('barge_data.json failed'); return []; }),
         fetch('/storms_2027.json')
-          .then(r => r.ok ? r.json() : { type: "FeatureCollection", features: [] })
-          .catch(() => ({ type: "FeatureCollection", features: [] }))
+          .then(r => r.ok ? r.json() : [])
+          .catch(() => { console.warn('storms_2027.json failed'); return []; })
       ]);
     }
 
-    function processData(bargeRaw = [], stormJSON = { features: [] }) {
-      console.log('Barge:', Array.isArray(bargeRaw) ? bargeRaw.length : 0, 
-                  'Storm features:', stormJSON.features?.length || 0);
+    // === UNIVERSAL DATA PROCESSING ===
+    function processData(bargeRaw = [], stormJSON = []) {
+      console.log('Barge records:', Array.isArray(bargeRaw) ? bargeRaw.length : 0);
+      console.log('Storm JSON:', stormJSON);
 
-      // === BARGE DATA ===
+      // === PROCESS BARGE DATA ===
       const processedBarge = (Array.isArray(bargeRaw) ? bargeRaw : [])
         .map(d => ({ ...d, Timestamp: new Date(d.Timestamp).toISOString() }))
         .filter(d => d.Latitude && d.Longitude && d.Latitude !== 0 && d.Longitude !== 0)
@@ -91,10 +91,21 @@
       const colorDict = {};
       barges.forEach((b, i) => colorDict[b] = colors[i % colors.length]);
 
-      // === STORM DATA ===
-      const points = (stormJSON.features || []).filter(f => f.properties?.type === 'point');
-      const lines = (stormJSON.features || []).filter(f => f.properties?.type === 'line');
+      // === PARSE STORM DATA (ANY FORMAT) ===
+      let features = [];
+      if (Array.isArray(stormJSON)) {
+        features = stormJSON;
+      } else if (stormJSON.features) {
+        features = stormJSON.features;
+      } else if (stormJSON.points) {
+        features = [...stormJSON.points, ...(stormJSON.lines || [])];
+      }
 
+      const points = features.filter(f => f.geometry?.type === 'Point');
+      const lines = features.filter(f => f.geometry?.type === 'LineString');
+      console.log('Parsed → Points:', points.length, 'Lines:', lines.length);
+
+      // Process points
       points.forEach(f => {
         const p = f.properties;
         const name = p.name;
@@ -110,6 +121,7 @@
       });
       Object.values(stormData.points).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
 
+      // Process lines
       lines.forEach(f => {
         const p = f.properties;
         const name = p.name;
@@ -121,11 +133,12 @@
         });
       });
 
-      // === TIME MERGING + CENTERING ===
+      // === TIME MERGING + CENTER MAP ===
       const allTimes = new Set();
       processedBarge.forEach(d => allTimes.add(d.Timestamp));
       points.forEach(f => allTimes.add(f.properties.time));
       uniqueTimes = Array.from(allTimes).sort();
+
       if (uniqueTimes.length > 0) {
         const last = new Date(uniqueTimes[uniqueTimes.length - 1]);
         last.setDate(last.getDate() + 1);
@@ -146,7 +159,7 @@
       legend.innerHTML = '';
       barges.forEach(b => {
         const s = document.createElement('span');
-        s.innerHTML = `<span style="color: ${colorDict[b]}; font-weight: bold;">Barge: ${b}</span>`;
+        s.innerHTML = `<span style="color: ${colorDict[b]}; font-weight: bold;">■ ${b}</span>`;
         legend.appendChild(s);
       });
 
@@ -196,6 +209,7 @@
       return { processedBarge, barges, colorDict };
     }
 
+    // === UPDATE MAP ===
     function updateMapForTime(timeIndex) {
       const currentTime = uniqueTimes[timeIndex];
       const now = new Date(currentTime);
