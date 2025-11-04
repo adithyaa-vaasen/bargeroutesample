@@ -249,8 +249,10 @@
         const points = stormData.points[name] || [];
         const lines = stormData.lines[name] || [];
 
-        const activePoint = points.find(p => new Date(p.time) <= now);
-        const hasFuture = points.some(p => new Date(p.time) > now);
+        const activePoint = points
+          .filter(p => new Date(p.time) <= now)
+          .sort((a, b) => new Date(b.time) - new Date(a.time))[0];
+        
 
         const visibleLines = lines.filter(l => new Date(l.time) <= now);
         const pathCoords = visibleLines.flatMap(l => l.coords);
