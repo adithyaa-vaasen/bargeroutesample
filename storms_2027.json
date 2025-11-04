@@ -6,13 +6,200 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "-96.4",
-          "10.0"
+          "84.0",
+          "-22.2"
         ]
       },
       "properties": {
-        "time": "2027-05-26T00:00:00+00:00",
-        "name": "ALVIN",
+        "time": "2027-01-01T00:00:00+00:00",
+        "name": "KATE",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "62.7",
+          "-32.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-02T00:00:00+00:00",
+        "name": "CALVINIA",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "178.0",
+          "-11.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-03T00:00:00+00:00",
+        "name": "MONA",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "76.0",
+          "-14.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-04T00:00:00+00:00",
+        "name": "DANILO",
+        "category": "TS",
+        "wind": 60,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "76.6",
+          "-16.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-05T00:00:00+00:00",
+        "name": "DANILO",
+        "category": "TS",
+        "wind": 60,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-171.7",
+          "1.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-06T00:00:00+00:00",
+        "name": "PALI",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "175.3",
+          "-19.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-07T00:00:00+00:00",
+        "name": "ULA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "127.9",
+          "-14.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-08T00:00:00+00:00",
+        "name": "JOYCE",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "47.4",
+          "-27.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-09T00:00:00+00:00",
+        "name": "AVA",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "58.6",
+          "-13.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-10T00:00:00+00:00",
+        "name": "DIKELEDI",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "54.6",
+          "-15.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-11T00:00:00+00:00",
+        "name": "BANSI",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "85.3",
+          "-11.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-12T00:00:00+00:00",
+        "name": "ELOISE",
         "category": "Non-TD",
         "wind": 20,
         "color": "#E2ECE2"
@@ -23,15 +210,15 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "-99.5",
-          "11.3"
+          "130.6",
+          "-15.4"
         ]
       },
       "properties": {
-        "time": "2027-05-27T00:00:00+00:00",
-        "name": "ALVIN",
+        "time": "2027-01-13T00:00:00+00:00",
+        "name": "TIFFANY",
         "category": "Non-TD",
-        "wind": 20,
+        "wind": 25,
         "color": "#E2ECE2"
       }
     },
@@ -40,47 +227,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "-102.2",
-          "12.8"
+          "177.4",
+          "-27.8"
         ]
       },
       "properties": {
-        "time": "2027-05-28T00:00:00+00:00",
-        "name": "ALVIN",
-        "category": "Non-TD",
-        "wind": 20,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-104.7",
-          "12.4"
-        ]
-      },
-      "properties": {
-        "time": "2027-05-29T00:00:00+00:00",
-        "name": "ALVIN",
-        "category": "Non-TD",
-        "wind": 30,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-107.6",
-          "15.6"
-        ]
-      },
-      "properties": {
-        "time": "2027-05-30T00:00:00+00:00",
-        "name": "ALVIN",
+        "time": "2027-01-14T00:00:00+00:00",
+        "name": "CODY",
         "category": "TS",
         "wind": 50,
         "color": "#FFFF00"
@@ -91,13 +244,234 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "-109.0",
-          "18.7"
+          "40.3",
+          "-18.3"
         ]
       },
       "properties": {
-        "time": "2027-05-31T00:00:00+00:00",
-        "name": "ALVIN",
+        "time": "2027-01-15T00:00:00+00:00",
+        "name": "CHEDZA",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "43.3",
+          "-27.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-16T00:00:00+00:00",
+        "name": "DIKELEDI",
+        "category": "Cat 3",
+        "wind": 99,
+        "color": "#FF0000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "146.5",
+          "-15.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-17T00:00:00+00:00",
+        "name": "KIMI",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "51.3",
+          "-21.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-18T00:00:00+00:00",
+        "name": "CHEDZA",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "54.4",
+          "-23.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-19T00:00:00+00:00",
+        "name": "BERGUITTA",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "156.3",
+          "-14.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-20T00:00:00+00:00",
+        "name": "KIRRILY",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "43.9",
+          "-16.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-21T00:00:00+00:00",
+        "name": "ELOISE",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "107.0",
+          "-27.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-22T00:00:00+00:00",
+        "name": "SEAN",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "58.3",
+          "-20.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-23T00:00:00+00:00",
+        "name": "ESAMI",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "65.5",
+          "-21.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-24T00:00:00+00:00",
+        "name": "ESAMI",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "149.1",
+          "-18.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-25T00:00:00+00:00",
+        "name": "KIRRILY",
+        "category": "TS",
+        "wind": 54,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "144.6",
+          "-20.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-26T00:00:00+00:00",
+        "name": "KIRRILY",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "84.8",
+          "-10.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-27T00:00:00+00:00",
+        "name": "CEBILE",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "78.4",
+          "-18.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-28T00:00:00+00:00",
+        "name": "DIAMONDRA",
         "category": "TS",
         "wind": 40,
         "color": "#FFFF00"
@@ -108,16 +482,2175 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "-103.5",
-          "9.6"
+          "162.4",
+          "-14.0"
         ]
       },
       "properties": {
-        "time": "2027-06-05T12:00:00+00:00",
-        "name": "COSME",
+        "time": "2027-01-29T00:00:00+00:00",
+        "name": "BINA",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "80.3",
+          "-15.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-30T00:00:00+00:00",
+        "name": "CEBILE",
+        "category": "Cat 3",
+        "wind": 100,
+        "color": "#FF0000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "66.0",
+          "-19.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-01-31T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "62.3",
+          "-17.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-01T00:00:00+00:00",
+        "name": "FAIDA",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "116.2",
+          "-22.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-02T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "167.8",
+          "-20.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-03T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "169.3",
+          "-21.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-04T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 29,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "160.0",
+          "-18.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-05T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "113.1",
+          "-26.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-06T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "99.0",
+          "-13.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-07T00:00:00+00:00",
+        "name": "DINGANI",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "114.5",
+          "-15.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-08T00:00:00+00:00",
+        "name": "FREDDY",
+        "category": "Cat 2",
+        "wind": 90,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "123.5",
+          "-14.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-09T00:00:00+00:00",
+        "name": "ZELIA",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "65.4",
+          "-24.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-10T00:00:00+00:00",
+        "name": "CLIFF",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "62.6",
+          "-29.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-11T00:00:00+00:00",
+        "name": "CARLOS",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "171.5",
+          "-17.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-12T00:00:00+00:00",
+        "name": "WINSTON",
+        "category": "Cat 1",
+        "wind": 70,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "160.5",
+          "-21.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-13T00:00:00+00:00",
+        "name": "TATIANA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "81.1",
+          "-26.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-14T00:00:00+00:00",
+        "name": "GELENA",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "83.6",
+          "-24.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-15T00:00:00+00:00",
+        "name": "TALIAH",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-163.3",
+          "-17.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-16T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "TS",
+        "wind": 39,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "134.2",
+          "6.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-17T00:00:00+00:00",
+        "name": "DUJUAN",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "37.8",
+          "-22.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-18T00:00:00+00:00",
+        "name": "GUAMBE",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "74.9",
+          "-22.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-19T00:00:00+00:00",
+        "name": "GABEKILE",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "137.1",
+          "-15.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-20T00:00:00+00:00",
+        "name": "ALFRED",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "54.0",
+          "-17.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-21T00:00:00+00:00",
+        "name": "EMNATI",
+        "category": "Cat 3",
+        "wind": 105,
+        "color": "#FF0000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "46.5",
+          "-21.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-22T00:00:00+00:00",
+        "name": "FREDDY",
+        "category": "TS",
+        "wind": 60,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "41.4",
+          "-22.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-23T00:00:00+00:00",
+        "name": "FREDDY",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "117.0",
+          "-18.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-24T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "154.5",
+          "-14.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-25T00:00:00+00:00",
+        "name": "ALFRED",
+        "category": "Cat 1",
+        "wind": 64,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "67.8",
+          "-27.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-26T00:00:00+00:00",
+        "name": "ENALA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "155.4",
+          "-16.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-27T00:00:00+00:00",
+        "name": "ALFRED",
+        "category": "Cat 2",
+        "wind": 93,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "55.3",
+          "-19.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-02-28T00:00:00+00:00",
+        "name": "GARANCE",
+        "category": "Cat 3",
+        "wind": 105,
+        "color": "#FF0000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "87.2",
+          "-14.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-01T00:00:00+00:00",
+        "name": "VERNON",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "84.6",
+          "-17.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-02T00:00:00+00:00",
+        "name": "VERNON",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "73.7",
+          "-13.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-03T00:00:00+00:00",
+        "name": "HALEH",
+        "category": "TS",
+        "wind": 60,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "159.1",
+          "-27.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-04T00:00:00+00:00",
+        "name": "ALFRED",
+        "category": "TS",
+        "wind": 54,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "74.6",
+          "-16.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-05T00:00:00+00:00",
+        "name": "HABANA",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "43.2",
+          "-23.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-06T00:00:00+00:00",
+        "name": "FREDDY",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "89.8",
+          "-10.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-07T00:00:00+00:00",
+        "name": "NEVILLE",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "165.7",
+          "-17.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-08T00:00:00+00:00",
+        "name": "HOLA",
+        "category": "Cat 3",
+        "wind": 105,
+        "color": "#FF0000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "45.1",
+          "-19.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-09T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "77.4",
+          "-17.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-10T00:00:00+00:00",
+        "name": "HABANA",
+        "category": "Cat 3",
+        "wind": 100,
+        "color": "#FF0000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "66.9",
+          "-33.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-11T00:00:00+00:00",
+        "name": "IMAN",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "37.3",
+          "-15.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-12T00:00:00+00:00",
+        "name": "GOMBE",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "184.5",
+          "-39.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-13T00:00:00+00:00",
+        "name": "HOLA",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "149.8",
+          "7.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-14T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "161.5",
+          "-20.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-15T00:00:00+00:00",
+        "name": "GRETEL",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "52.3",
+          "-37.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-16T00:00:00+00:00",
+        "name": "FERNANDO",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "149.7",
+          "-14.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-17T00:00:00+00:00",
+        "name": "NATHAN",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "137.0",
+          "-15.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-18T00:00:00+00:00",
+        "name": "MEGAN",
+        "category": "Cat 2",
+        "wind": 84,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "86.6",
+          "-18.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-19T00:00:00+00:00",
+        "name": "SAVANNAH",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "62.1",
+          "-12.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-20T00:00:00+00:00",
+        "name": "JOANINHA",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "106.7",
+          "-17.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-21T00:00:00+00:00",
+        "name": "NEVILLE",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "57.2",
+          "-35.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-22T00:00:00+00:00",
+        "name": "ELIAKIM",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "84.1",
+          "-11.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-23T00:00:00+00:00",
+        "name": "EMERAUDE",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "61.6",
+          "-17.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-24T00:00:00+00:00",
+        "name": "JOANINHA",
+        "category": "Cat 1",
+        "wind": 80,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "136.2",
+          "-21.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-25T00:00:00+00:00",
+        "name": "TREVOR",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "63.7",
+          "-18.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-26T00:00:00+00:00",
+        "name": "JOANINHA",
+        "category": "Cat 4",
+        "wind": 115,
+        "color": "#FF1493"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "50.1",
+          "-12.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-27T00:00:00+00:00",
+        "name": "GAMANE",
+        "category": "Cat 2",
+        "wind": 89,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "110.4",
+          "-22.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-28T00:00:00+00:00",
+        "name": "VERONICA",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "82.4",
+          "-22.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-29T00:00:00+00:00",
+        "name": "HALIMA",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "154.2",
+          "-19.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-30T00:00:00+00:00",
+        "name": "IRIS",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "111.2",
+          "-19.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-03-31T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "69.4",
+          "-12.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-01T00:00:00+00:00",
+        "name": "IRONDRO",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "73.9",
+          "-18.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-02T00:00:00+00:00",
+        "name": "JOALANE",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "97.5",
+          "13.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-03T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "76.6",
+          "-20.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-04T00:00:00+00:00",
+        "name": "IRONDRO",
+        "category": "Cat 2",
+        "wind": 95,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "161.2",
+          "-17.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-05T00:00:00+00:00",
+        "name": "FILI",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "172.7",
+          "-17.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-06T00:00:00+00:00",
+        "name": "ZENA",
+        "category": "Cat 2",
+        "wind": 90,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "117.8",
+          "-13.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-07T00:00:00+00:00",
+        "name": "SEROJA",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "97.5",
+          "-21.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-08T00:00:00+00:00",
+        "name": "IKOLA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "108.4",
+          "-17.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-09T00:00:00+00:00",
+        "name": "ERNIE",
+        "category": "Cat 2",
+        "wind": 90,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "162.8",
+          "-19.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-10T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "121.5",
+          "-14.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-11T00:00:00+00:00",
+        "name": "ILSA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "156.2",
+          "-14.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-12T00:00:00+00:00",
+        "name": "PAUL",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "127.6",
+          "-13.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-13T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "121.3",
+          "-21.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-14T00:00:00+00:00",
+        "name": "ILSA",
+        "category": "Cat 1",
+        "wind": 75,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "127.1",
+          "11.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-15T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "82.6",
+          "-16.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-16T00:00:00+00:00",
+        "name": "JERUTO",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "95.4",
+          "19.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-17T00:00:00+00:00",
+        "name": "MAARUTHA",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-44.7",
+          "32.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-18T00:00:00+00:00",
+        "name": "ARLENE",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "167.4",
+          "-38.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-19T00:00:00+00:00",
+        "name": "TAM",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-178.1",
+          "-13.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-20T00:00:00+00:00",
+        "name": "AMOS",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "156.1",
+          "10.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-21T00:00:00+00:00",
+        "name": "SANVU",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "52.4",
+          "-9.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-22T00:00:00+00:00",
+        "name": "KENNETH",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "50.9",
+          "-10.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-23T00:00:00+00:00",
+        "name": "KENNETH",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "39.5",
+          "-17.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-24T00:00:00+00:00",
+        "name": "JASMINE",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "133.2",
+          "-7.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-25T00:00:00+00:00",
+        "name": "FRANCES",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "103.4",
+          "-13.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-26T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "104.5",
+          "-13.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-27T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "126.4",
+          "-11.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-28T00:00:00+00:00",
+        "name": "FRANCES",
+        "category": "TS",
+        "wind": 60,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "89.5",
+          "-20.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-29T00:00:00+00:00",
+        "name": "LORNA",
+        "category": "Cat 1",
+        "wind": 65,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "101.5",
+          "-10.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-04-30T00:00:00+00:00",
+        "name": "GREG",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "51.0",
+          "-25.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-01T00:00:00+00:00",
+        "name": "JASMINE",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "44.6",
+          "-9.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-02T00:00:00+00:00",
+        "name": "HIDAYA",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "85.4",
+          "-22.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-03T00:00:00+00:00",
+        "name": "FLAMBOYAN",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "88.5",
+          "23.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-04T00:00:00+00:00",
+        "name": "FANI",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "166.2",
+          "-13.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-05T00:00:00+00:00",
+        "name": "DONNA",
+        "category": "Cat 1",
+        "wind": 80,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "164.3",
+          "-13.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-06T00:00:00+00:00",
+        "name": "DONNA",
+        "category": "Cat 2",
+        "wind": 90,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "129.5",
+          "-5.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-07T00:00:00+00:00",
+        "name": "LILI",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "89.3",
+          "11.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-08T00:00:00+00:00",
+        "name": "ASANI",
+        "category": "TS",
+        "wind": 60,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "166.3",
+          "-19.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-09T00:00:00+00:00",
+        "name": "DONNA",
+        "category": "Cat 2",
+        "wind": 90,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "167.9",
+          "-21.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-10T00:00:00+00:00",
+        "name": "DONNA",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-92.9",
+          "10.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-11T00:00:00+00:00",
+        "name": "ADRIAN",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-94.6",
+          "12.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-12T00:00:00+00:00",
+        "name": "ADRIAN",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "86.4",
+          "-2.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-13T00:00:00+00:00",
+        "name": "FABIEN",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "125.3",
+          "7.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-14T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "72.9",
+          "12.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-15T00:00:00+00:00",
+        "name": "TAUKTAE",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "52.7",
+          "12.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-16T00:00:00+00:00",
+        "name": "MEKUNU:SAGAR",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "171.6",
+          "-13.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-17T00:00:00+00:00",
+        "name": "GINA",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "124.4",
+          "22.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-18T00:00:00+00:00",
+        "name": "VONGFONG",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "149.7",
+          "4.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-19T00:00:00+00:00",
+        "name": "MAWAR",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "42.9",
+          "10.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-20T00:00:00+00:00",
+        "name": "MEKUNU:SAGAR",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "43.0",
+          "-5.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-21T00:00:00+00:00",
+        "name": "IALY",
+        "category": "TS",
+        "wind": 54,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "171.7",
+          "52.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-22T00:00:00+00:00",
+        "name": "DOLPHIN",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "70.1",
+          "-13.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-23T00:00:00+00:00",
+        "name": "FABIEN",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "88.6",
+          "15.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-24T00:00:00+00:00",
+        "name": "REMAL",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "90.0",
+          "17.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-25T00:00:00+00:00",
+        "name": "REMAL",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "121.5",
+          "14.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-26T00:00:00+00:00",
+        "name": "EWINIAR",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "85.7",
+          "23.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-27T00:00:00+00:00",
+        "name": "YAAS",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "142.1",
+          "4.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-28T00:00:00+00:00",
+        "name": "CHOI-WAN",
         "category": "Non-TD",
         "wind": 15,
         "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-86.1",
+          "30.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-29T00:00:00+00:00",
+        "name": "ALBERTO",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "112.5",
+          "17.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-30T00:00:00+00:00",
+        "name": "MALIKSI",
+        "category": "Non-TD",
+        "wind": 15,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-79.3",
+          "33.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-05-31T00:00:00+00:00",
+        "name": "BONNIE",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "155.1",
+          "39.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-01T00:00:00+00:00",
+        "name": "EWINIAR",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-111.2",
+          "14.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-02T00:00:00+00:00",
+        "name": "BLANCA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-92.5",
+          "19.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-03T00:00:00+00:00",
+        "name": "CRISTOBAL",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-125.3",
+          "20.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-04T00:00:00+00:00",
+        "name": "ANDRES",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "123.8",
+          "24.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-05T00:00:00+00:00",
+        "name": "CHOI-WAN",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
       }
     },
     {
@@ -142,13 +2675,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "-97.0",
-          "12.3"
+          "-96.2",
+          "14.3"
         ]
       },
       "properties": {
         "time": "2027-06-07T00:00:00+00:00",
-        "name": "BARBARA",
+        "name": "UNNAMED",
         "category": "Non-TD",
         "wind": 30,
         "color": "#E2ECE2"
@@ -159,356 +2692,16 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "-100.9",
-          "14.6"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-08T00:00:00+00:00",
-        "name": "BARBARA",
-        "category": "Non-TD",
-        "wind": 30,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-104.5",
-          "16.2"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-09T00:00:00+00:00",
-        "name": "BARBARA",
-        "category": "TS",
-        "wind": 55,
-        "color": "#FFFF00"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-114.1",
-          "15.0"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-10T00:00:00+00:00",
-        "name": "COSME",
-        "category": "TS",
-        "wind": 60,
-        "color": "#FFFF00"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-115.0",
-          "15.8"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-11T00:00:00+00:00",
-        "name": "COSME",
-        "category": "TS",
-        "wind": 40,
-        "color": "#FFFF00"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-98.3",
-          "10.1"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-12T00:00:00+00:00",
-        "name": "DALILA",
-        "category": "Non-TD",
-        "wind": 20,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-100.5",
-          "11.5"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-13T00:00:00+00:00",
-        "name": "DALILA",
-        "category": "Non-TD",
-        "wind": 30,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-102.6",
-          "14.9"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-14T00:00:00+00:00",
-        "name": "DALILA",
-        "category": "TS",
-        "wind": 40,
-        "color": "#FFFF00"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-105.4",
-          "17.4"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-15T00:00:00+00:00",
-        "name": "DALILA",
-        "category": "TS",
-        "wind": 55,
-        "color": "#FFFF00"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-108.8",
-          "18.5"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-16T00:00:00+00:00",
-        "name": "DALILA",
-        "category": "TD",
-        "wind": 35,
-        "color": "#00FF00"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-92.4",
-          "11.1"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-17T00:00:00+00:00",
-        "name": "ERICK",
-        "category": "Non-TD",
-        "wind": 30,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-94.6",
-          "12.9"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-18T00:00:00+00:00",
-        "name": "ERICK",
-        "category": "TS",
-        "wind": 50,
-        "color": "#FFFF00"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-96.8",
-          "14.9"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-19T00:00:00+00:00",
-        "name": "ERICK",
-        "category": "Cat 4",
-        "wind": 115,
-        "color": "#FF1493"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-100.3",
-          "17.8"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-20T00:00:00+00:00",
-        "name": "ERICK",
-        "category": "Non-TD",
-        "wind": 25,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-89.0",
-          "9.7"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-23T06:00:00+00:00",
-        "name": "FLOSSIE",
-        "category": "Non-TD",
-        "wind": 20,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-89.6",
-          "9.0"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-24T00:00:00+00:00",
-        "name": "FLOSSIE",
-        "category": "Non-TD",
-        "wind": 25,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-91.2",
-          "8.7"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-25T00:00:00+00:00",
-        "name": "FLOSSIE",
-        "category": "Non-TD",
-        "wind": 30,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-92.8",
-          "9.5"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-26T00:00:00+00:00",
-        "name": "FLOSSIE",
-        "category": "Non-TD",
-        "wind": 25,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-95.3",
-          "9.9"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-27T00:00:00+00:00",
-        "name": "FLOSSIE",
-        "category": "Non-TD",
-        "wind": 25,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-94.5",
-          "11.9"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-28T00:00:00+00:00",
-        "name": "FLOSSIE",
-        "category": "Non-TD",
-        "wind": 25,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-98.1",
-          "13.1"
-        ]
-      },
-      "properties": {
-        "time": "2027-06-29T00:00:00+00:00",
-        "name": "FLOSSIE",
-        "category": "Non-TD",
-        "wind": 25,
-        "color": "#E2ECE2"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "-100.7",
+          "66.1",
           "13.8"
         ]
       },
       "properties": {
-        "time": "2027-06-30T00:00:00+00:00",
-        "name": "FLOSSIE",
-        "category": "TD",
-        "wind": 35,
-        "color": "#00FF00"
+        "time": "2027-06-08T00:00:00+00:00",
+        "name": "BIPARJOY",
+        "category": "Cat 1",
+        "wind": 75,
+        "color": "#FFA500"
       }
     },
     {
@@ -516,13 +2709,132 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "-103.9",
-          "16.4"
+          "71.9",
+          "10.1"
         ]
       },
       "properties": {
-        "time": "2027-07-01T00:00:00+00:00",
-        "name": "FLOSSIE",
+        "time": "2027-06-09T00:00:00+00:00",
+        "name": "VAYU",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "67.4",
+          "16.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-10T00:00:00+00:00",
+        "name": "BIPARJOY",
+        "category": "Cat 2",
+        "wind": 95,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "116.9",
+          "16.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-11T00:00:00+00:00",
+        "name": "MERBOK",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "70.3",
+          "17.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-12T00:00:00+00:00",
+        "name": "VAYU",
+        "category": "Cat 2",
+        "wind": 95,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "114.8",
+          "23.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-13T00:00:00+00:00",
+        "name": "MERBOK",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-126.9",
+          "11.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-14T00:00:00+00:00",
+        "name": "CARLOS",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-102.0",
+          "14.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-15T00:00:00+00:00",
+        "name": "BLAS",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "65.5",
+          "20.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-16T00:00:00+00:00",
+        "name": "VAYU",
         "category": "Cat 1",
         "wind": 65,
         "color": "#FFA500"
@@ -533,15 +2845,1018 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "-107.1",
-          "18.0"
+          "-135.8",
+          "8.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-17T00:00:00+00:00",
+        "name": "CARLOS",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-100.4",
+          "14.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-18T00:00:00+00:00",
+        "name": "DOLORES",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-51.7",
+          "7.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-19T00:00:00+00:00",
+        "name": "BRET",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-112.7",
+          "19.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-20T00:00:00+00:00",
+        "name": "BLAS",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-90.9",
+          "26.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-21T00:00:00+00:00",
+        "name": "CINDY",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-54.6",
+          "13.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-22T00:00:00+00:00",
+        "name": "BRET",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "140.9",
+          "15.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-23T00:00:00+00:00",
+        "name": "CHAMPI",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-50.0",
+          "13.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-24T00:00:00+00:00",
+        "name": "CINDY",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-55.2",
+          "18.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-25T00:00:00+00:00",
+        "name": "CINDY",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-118.4",
+          "19.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-26T00:00:00+00:00",
+        "name": "DANIEL",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-139.4",
+          "12.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-27T00:00:00+00:00",
+        "name": "BORIS",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-52.2",
+          "8.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-28T00:00:00+00:00",
+        "name": "BONNIE",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "162.4",
+          "-4.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-29T00:00:00+00:00",
+        "name": "RAQUEL",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-69.7",
+          "11.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-06-30T00:00:00+00:00",
+        "name": "BONNIE",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "157.9",
+          "10.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-01T00:00:00+00:00",
+        "name": "CHAN-HOM",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "126.9",
+          "20.6"
         ]
       },
       "properties": {
         "time": "2027-07-02T00:00:00+00:00",
-        "name": "FLOSSIE",
+        "name": "NANMADOL",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "145.4",
+          "27.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-03T00:00:00+00:00",
+        "name": "MUN",
+        "category": "TS",
+        "wind": 39,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-74.4",
+          "17.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-04T00:00:00+00:00",
+        "name": "ELSA",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "139.5",
+          "41.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-05T00:00:00+00:00",
+        "name": "PRAPIROON",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-133.9",
+          "20.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-06T00:00:00+00:00",
+        "name": "AGATHA",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-131.5",
+          "23.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-07T00:00:00+00:00",
+        "name": "FABIO",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-74.8",
+          "39.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-08T00:00:00+00:00",
+        "name": "CHANTAL",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "133.5",
+          "21.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-09T00:00:00+00:00",
+        "name": "MARIA",
+        "category": "Cat 5",
+        "wind": 140,
+        "color": "#8B008B"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "190.6",
+          "11.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-10T00:00:00+00:00",
+        "name": "HALOLA",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "120.1",
+          "26.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-11T00:00:00+00:00",
+        "name": "MARIA",
+        "category": "Cat 2",
+        "wind": 95,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-153.4",
+          "22.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-12T00:00:00+00:00",
+        "name": "ELA",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "137.2",
+          "19.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-13T00:00:00+00:00",
+        "name": "NANGKA",
+        "category": "Cat 2",
+        "wind": 95,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-46.7",
+          "32.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-14T00:00:00+00:00",
+        "name": "DON",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-104.5",
+          "13.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-15T00:00:00+00:00",
+        "name": "ESTELLE",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "69.8",
+          "-8.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-16T00:00:00+00:00",
+        "name": "ABELA",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "133.5",
+          "35.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-17T00:00:00+00:00",
+        "name": "NANGKA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "86.0",
+          "19.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-18T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-118.8",
+          "24.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-19T00:00:00+00:00",
+        "name": "DOLORES",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-120.6",
+          "29.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-20T00:00:00+00:00",
+        "name": "DOLORES",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-168.5",
+          "24.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-21T00:00:00+00:00",
+        "name": "CELIA",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "153.9",
+          "28.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-22T00:00:00+00:00",
+        "name": "NORU",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-114.0",
+          "14.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-23T00:00:00+00:00",
+        "name": "IRWIN",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "159.0",
+          "29.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-24T00:00:00+00:00",
+        "name": "WUKONG",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "123.7",
+          "26.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-25T00:00:00+00:00",
+        "name": "FRANCISCO",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-150.7",
+          "19.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-26T00:00:00+00:00",
+        "name": "DOUGLAS",
+        "category": "Cat 1",
+        "wind": 80,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-121.0",
+          "19.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-27T00:00:00+00:00",
+        "name": "BUD",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "127.9",
+          "26.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-28T00:00:00+00:00",
+        "name": "CO-MAY",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "72.5",
+          "26.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-29T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-124.5",
+          "16.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-30T00:00:00+00:00",
+        "name": "IRWIN",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "121.0",
+          "40.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-07-31T00:00:00+00:00",
+        "name": "IN-FA",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "154.7",
+          "17.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-01T00:00:00+00:00",
+        "name": "FRANCISCO",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-112.2",
+          "17.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-02T00:00:00+00:00",
+        "name": "IGNACIO",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-79.7",
+          "28.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-03T00:00:00+00:00",
+        "name": "ISAIAS",
+        "category": "TS",
+        "wind": 60,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "149.3",
+          "20.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-04T00:00:00+00:00",
+        "name": "SHANSHAN",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "130.1",
+          "18.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-05T00:00:00+00:00",
+        "name": "LEKIMA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-50.3",
+          "31.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-06T00:00:00+00:00",
+        "name": "DEBBY",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "156.6",
+          "33.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-07T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "132.5",
+          "19.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-08T00:00:00+00:00",
+        "name": "YAGI",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "146.0",
+          "30.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-09T00:00:00+00:00",
+        "name": "MARIA",
+        "category": "TS",
+        "wind": 60,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-128.9",
+          "23.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-10T00:00:00+00:00",
+        "name": "EMILIA",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "135.9",
+          "42.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-11T00:00:00+00:00",
+        "name": "JANGMI",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-131.6",
+          "22.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-12T00:00:00+00:00",
+        "name": "KRISTY",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "155.0",
+          "30.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-13T00:00:00+00:00",
+        "name": "CONSON",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "143.3",
+          "21.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-14T00:00:00+00:00",
+        "name": "CHANTHU",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-119.4",
+          "16.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-15T00:00:00+00:00",
+        "name": "FERNANDA",
         "category": "Cat 3",
-        "wind": 100,
+        "wind": 110,
         "color": "#FF0000"
       }
     },
@@ -550,16 +3865,2345 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "-109.9",
+          "166.4",
+          "31.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-16T00:00:00+00:00",
+        "name": "HECTOR",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-115.3",
+          "17.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-17T00:00:00+00:00",
+        "name": "IVETTE",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-105.3",
+          "16.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-18T00:00:00+00:00",
+        "name": "GENEVIEVE",
+        "category": "Cat 2",
+        "wind": 85,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-134.0",
+          "19.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-19T00:00:00+00:00",
+        "name": "LINDA",
+        "category": "Cat 1",
+        "wind": 80,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-72.8",
+          "27.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-20T00:00:00+00:00",
+        "name": "ERIN",
+        "category": "Cat 2",
+        "wind": 90,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "175.0",
+          "33.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-21T00:00:00+00:00",
+        "name": "DORA",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-110.6",
+          "15.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-22T00:00:00+00:00",
+        "name": "IVO",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "135.0",
+          "29.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-23T00:00:00+00:00",
+        "name": "CIMARON",
+        "category": "Cat 1",
+        "wind": 80,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "111.1",
+          "17.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-24T00:00:00+00:00",
+        "name": "KAJIKI",
+        "category": "Cat 1",
+        "wind": 64,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "136.5",
+          "41.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-25T00:00:00+00:00",
+        "name": "OMAIS",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "133.9",
+          "12.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-26T00:00:00+00:00",
+        "name": "MAYSAK",
+        "category": "Non-TD",
+        "wind": 10,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "148.0",
+          "47.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-27T00:00:00+00:00",
+        "name": "OMAIS",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-166.5",
+          "20.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-28T00:00:00+00:00",
+        "name": "HONE",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "129.5",
+          "16.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-29T00:00:00+00:00",
+        "name": "MAYSAK",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-106.7",
+          "23.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-30T00:00:00+00:00",
+        "name": "NORA",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "122.7",
+          "18.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-08-31T00:00:00+00:00",
+        "name": "KAJIKI",
+        "category": "Non-TD",
+        "wind": 15,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-107.8",
+          "14.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-01T00:00:00+00:00",
+        "name": "OLIVIA",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-145.4",
+          "18.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-02T00:00:00+00:00",
+        "name": "LESTER",
+        "category": "Cat 3",
+        "wind": 110,
+        "color": "#FF0000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-43.6",
+          "38.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-03T00:00:00+00:00",
+        "name": "DANIELLE",
+        "category": "Cat 1",
+        "wind": 65,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-112.9",
+          "23.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-04T00:00:00+00:00",
+        "name": "LORENA",
+        "category": "Cat 1",
+        "wind": 75,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-145.1",
+          "19.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-05T00:00:00+00:00",
+        "name": "NORMAN",
+        "category": "Cat 1",
+        "wind": 70,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-107.0",
+          "12.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-06T00:00:00+00:00",
+        "name": "LINDA",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "165.4",
+          "24.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-07T00:00:00+00:00",
+        "name": "KILO",
+        "category": "Cat 1",
+        "wind": 80,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-112.5",
+          "18.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-08T00:00:00+00:00",
+        "name": "LINDA",
+        "category": "Cat 2",
+        "wind": 85,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-35.1",
+          "19.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-09T00:00:00+00:00",
+        "name": "MARGOT",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "110.0",
+          "22.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-10T00:00:00+00:00",
+        "name": "HAIKUI",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-52.6",
+          "43.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-11T00:00:00+00:00",
+        "name": "EARL",
+        "category": "TS",
+        "wind": 60,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-51.9",
+          "44.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-12T00:00:00+00:00",
+        "name": "EARL",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-108.3",
+          "20.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-13T00:00:00+00:00",
+        "name": "ILEANA",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-67.8",
+          "27.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-14T00:00:00+00:00",
+        "name": "LEE",
+        "category": "Cat 2",
+        "wind": 90,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-43.9",
+          "31.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-15T00:00:00+00:00",
+        "name": "JOYCE",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "121.8",
+          "30.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-16T00:00:00+00:00",
+        "name": "BEBINCA",
+        "category": "Cat 1",
+        "wind": 70,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "129.0",
+          "43.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-17T00:00:00+00:00",
+        "name": "MUIFA",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "115.1",
+          "33.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-18T00:00:00+00:00",
+        "name": "BEBINCA",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-127.5",
+          "15.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-19T00:00:00+00:00",
+        "name": "KIKO",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "145.9",
+          "52.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-20T00:00:00+00:00",
+        "name": "TALIM",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "146.4",
+          "54.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-21T00:00:00+00:00",
+        "name": "TALIM",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-96.3",
+          "28.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-22T00:00:00+00:00",
+        "name": "BETA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-25.7",
+          "8.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-23T00:00:00+00:00",
+        "name": "KIRK",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "138.2",
+          "33.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-24T00:00:00+00:00",
+        "name": "TALAS",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "134.7",
+          "28.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-25T00:00:00+00:00",
+        "name": "CIMARON",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-143.5",
+          "19.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-26T00:00:00+00:00",
+        "name": "KIKO",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-50.1",
+          "37.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-27T00:00:00+00:00",
+        "name": "ISAAC",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-44.3",
+          "18.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-28T00:00:00+00:00",
+        "name": "JOYCE",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "124.4",
+          "18.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-29T00:00:00+00:00",
+        "name": "KRATHON",
+        "category": "Cat 1",
+        "wind": 70,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-55.6",
+          "38.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-09-30T00:00:00+00:00",
+        "name": "MARIA",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-116.1",
+          "14.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-01T00:00:00+00:00",
+        "name": "MARIE",
+        "category": "Cat 1",
+        "wind": 65,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-55.6",
+          "26.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-02T00:00:00+00:00",
+        "name": "RINA",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-170.3",
+          "16.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-03T00:00:00+00:00",
+        "name": "WALAKA",
+        "category": "Cat 4",
+        "wind": 120,
+        "color": "#FF1493"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-154.5",
+          "12.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-04T00:00:00+00:00",
+        "name": "OHO",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-172.8",
+          "11.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-05T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-63.9",
+          "25.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-06T00:00:00+00:00",
+        "name": "NICOLE",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-115.9",
+          "18.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-07T00:00:00+00:00",
+        "name": "PAINE",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "122.4",
+          "13.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-08T00:00:00+00:00",
+        "name": "LINFA",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-46.8",
+          "20.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-09T00:00:00+00:00",
+        "name": "LESLIE",
+        "category": "Cat 1",
+        "wind": 70,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-86.5",
+          "26.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-10T00:00:00+00:00",
+        "name": "MICHAEL",
+        "category": "Cat 3",
+        "wind": 110,
+        "color": "#FF0000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-31.4",
+          "9.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-11T00:00:00+00:00",
+        "name": "SEAN",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-94.8",
+          "20.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-12T00:00:00+00:00",
+        "name": "KARL",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "82.5",
+          "16.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-13T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "107.6",
+          "19.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-14T00:00:00+00:00",
+        "name": "KOMPASU",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "143.3",
+          "8.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-15T00:00:00+00:00",
+        "name": "HAIMA",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-23.4",
+          "17.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-16T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-55.5",
+          "30.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-17T00:00:00+00:00",
+        "name": "EPSILON",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "136.4",
+          "10.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-18T00:00:00+00:00",
+        "name": "SAUDEL",
+        "category": "Non-TD",
+        "wind": 15,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-38.0",
+          "55.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-19T00:00:00+00:00",
+        "name": "NICOLE",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "137.5",
+          "14.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-20T00:00:00+00:00",
+        "name": "TRAMI",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "139.9",
+          "22.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-21T00:00:00+00:00",
+        "name": "CHAMPI",
+        "category": "Cat 1",
+        "wind": 75,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "90.1",
+          "13.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-22T00:00:00+00:00",
+        "name": "KYANT",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "141.5",
+          "37.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-23T00:00:00+00:00",
+        "name": "LAN",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "121.2",
+          "17.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-24T00:00:00+00:00",
+        "name": "TRAMI",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.2",
+          "24.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-25T00:00:00+00:00",
+        "name": "TAMMY",
+        "category": "Cat 1",
+        "wind": 75,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "165.5",
+          "-17.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-26T00:00:00+00:00",
+        "name": "LOLA",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "129.7",
+          "21.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-27T00:00:00+00:00",
+        "name": "SAOLA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.5",
+          "32.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-28T00:00:00+00:00",
+        "name": "TAMMY",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "77.5",
+          "4.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-29T00:00:00+00:00",
+        "name": "MAHA",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "62.3",
           "19.6"
         ]
       },
       "properties": {
-        "time": "2027-07-03T00:00:00+00:00",
-        "name": "FLOSSIE",
+        "time": "2027-10-30T00:00:00+00:00",
+        "name": "KYAAR:KYARR",
+        "category": "Cat 2",
+        "wind": 85,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "60.4",
+          "18.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-10-31T00:00:00+00:00",
+        "name": "KYAAR:KYARR",
+        "category": "TS",
+        "wind": 40,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-32.4",
+          "40.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-01T00:00:00+00:00",
+        "name": "REBEKAH",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "138.4",
+          "12.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-02T00:00:00+00:00",
+        "name": "MEARI",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-110.8",
+          "11.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-03T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-116.7",
+          "14.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-04T00:00:00+00:00",
+        "name": "ODALYS",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "139.9",
+          "17.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-05T00:00:00+00:00",
+        "name": "MEARI",
+        "category": "Cat 1",
+        "wind": 75,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "150.5",
+          "20.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-06T00:00:00+00:00",
+        "name": "HALONG",
+        "category": "Cat 5",
+        "wind": 155,
+        "color": "#8B008B"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "57.7",
+          "-10.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-07T00:00:00+00:00",
+        "name": "ALCIDE",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-115.5",
+          "14.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-08T00:00:00+00:00",
+        "name": "SANDRA",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-115.7",
+          "17.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-09T00:00:00+00:00",
+        "name": "XAVIER",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "128.6",
+          "13.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-10T00:00:00+00:00",
+        "name": "VAMCO",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "168.1",
+          "13.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-11T00:00:00+00:00",
+        "name": "FENGSHEN",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "113.0",
+          "17.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-12T00:00:00+00:00",
+        "name": "HAIKUI",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "110.5",
+          "17.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-13T00:00:00+00:00",
+        "name": "HAIKUI",
+        "category": "Non-TD",
+        "wind": 15,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "174.6",
+          "-14.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-14T00:00:00+00:00",
+        "name": "MAL",
+        "category": "Cat 1",
+        "wind": 64,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "83.1",
+          "11.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-15T00:00:00+00:00",
+        "name": "GAJA",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-17.9",
+          "32.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-16T00:00:00+00:00",
+        "name": "THETA",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-87.1",
+          "16.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-17T00:00:00+00:00",
+        "name": "SARA",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "140.4",
+          "11.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-18T00:00:00+00:00",
+        "name": "FUNG-WONG",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "152.7",
+          "8.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-19T00:00:00+00:00",
+        "name": "IN-FA",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "102.8",
+          "8.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-20T00:00:00+00:00",
+        "name": "TORAJI",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "142.8",
+          "11.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-21T00:00:00+00:00",
+        "name": "IN-FA",
+        "category": "Cat 4",
+        "wind": 120,
+        "color": "#FF1493"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "81.4",
+          "13.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-22T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "132.0",
+          "15.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-23T00:00:00+00:00",
+        "name": "IN-FA",
+        "category": "Cat 2",
+        "wind": 90,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "168.6",
+          "-9.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-24T00:00:00+00:00",
+        "name": "RITA",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "135.0",
+          "19.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-25T00:00:00+00:00",
+        "name": "IN-FA",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-12.2",
+          "48.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-26T00:00:00+00:00",
+        "name": "SEBASTIEN",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-124.4",
+          "14.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-27T00:00:00+00:00",
+        "name": "RAMON",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "135.8",
+          "25.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-28T00:00:00+00:00",
+        "name": "MAN-YI",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "142.7",
+          "11.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-29T00:00:00+00:00",
+        "name": "NYATOH",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "191.5",
+          "-18.2"
+        ]
+      },
+      "properties": {
+        "time": "2027-11-30T00:00:00+00:00",
+        "name": "TUNI",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "87.0",
+          "-10.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-01T00:00:00+00:00",
+        "name": "BONGOYO",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "79.6",
+          "10.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-02T00:00:00+00:00",
+        "name": "NADA",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "162.7",
+          "-8.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-03T00:00:00+00:00",
+        "name": "JASPER",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "84.8",
+          "16.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-04T00:00:00+00:00",
+        "name": "JAWAD",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "79.4",
+          "9.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-05T00:00:00+00:00",
+        "name": "BUREVI",
+        "category": "Non-TD",
+        "wind": 25,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "87.7",
+          "21.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-06T00:00:00+00:00",
+        "name": "JAWAD",
+        "category": "Non-TD",
+        "wind": 15,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "91.0",
+          "9.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-07T00:00:00+00:00",
+        "name": "VARDAH",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "106.3",
+          "-12.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-08T00:00:00+00:00",
+        "name": "TERATAI",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "59.9",
+          "-13.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-09T00:00:00+00:00",
+        "name": "AMBALI",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "181.8",
+          "-12.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-10T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "150.3",
+          "-17.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-11T00:00:00+00:00",
+        "name": "JASPER",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "124.6",
+          "-25.9"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-12T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "135.9",
+          "-15.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-13T00:00:00+00:00",
+        "name": "OWEN",
+        "category": "Cat 2",
+        "wind": 85,
+        "color": "#FF6347"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "70.8",
+          "13.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-14T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-173.9",
+          "-19.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-15T00:00:00+00:00",
+        "name": "ZAZU",
+        "category": "TS",
+        "wind": 50,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "127.6",
+          "9.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-16T00:00:00+00:00",
+        "name": "RAI",
+        "category": "Cat 5",
+        "wind": 150,
+        "color": "#8B008B"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "177.8",
+          "-16.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-17T00:00:00+00:00",
+        "name": "YASA",
+        "category": "Cat 4",
+        "wind": 125,
+        "color": "#FF1493"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "127.2",
+          "7.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-18T00:00:00+00:00",
+        "name": "KROVANH",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "181.9",
+          "-21.0"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-19T00:00:00+00:00",
+        "name": "YASA",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "113.3",
+          "-14.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-20T00:00:00+00:00",
+        "name": "YVETTE",
+        "category": "TD",
+        "wind": 35,
+        "color": "#00FF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "67.8",
+          "-13.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-21T00:00:00+00:00",
+        "name": "CALVINIA",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "114.3",
+          "-14.4"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-22T00:00:00+00:00",
+        "name": "YVETTE",
+        "category": "TS",
+        "wind": 45,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "133.2",
+          "11.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-23T00:00:00+00:00",
+        "name": "NOCK-TEN",
+        "category": "TS",
+        "wind": 55,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "114.7",
+          "8.1"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-24T00:00:00+00:00",
+        "name": "TEMBIN",
+        "category": "Cat 1",
+        "wind": 80,
+        "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "122.4",
+          "11.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-25T00:00:00+00:00",
+        "name": "PHANFONE",
+        "category": "Cat 3",
+        "wind": 105,
+        "color": "#FF0000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "133.1",
+          "9.6"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-26T00:00:00+00:00",
+        "name": "UNNAMED",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "48.8",
+          "-17.7"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-27T00:00:00+00:00",
+        "name": "CHALANE",
+        "category": "Non-TD",
+        "wind": 30,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "79.3",
+          "-19.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-28T00:00:00+00:00",
+        "name": "DARIAN",
+        "category": "TS",
+        "wind": 60,
+        "color": "#FFFF00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "126.4",
+          "-17.8"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-29T00:00:00+00:00",
+        "name": "ELLIE",
+        "category": "Non-TD",
+        "wind": 20,
+        "color": "#E2ECE2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "35.9",
+          "-19.3"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-30T00:00:00+00:00",
+        "name": "CHALANE",
         "category": "Cat 1",
         "wind": 70,
         "color": "#FFA500"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "134.2",
+          "9.5"
+        ]
+      },
+      "properties": {
+        "time": "2027-12-31T00:00:00+00:00",
+        "name": "BOLAVEN",
+        "category": "Non-TD",
+        "wind": null,
+        "color": "#E2ECE2"
       }
     }
   ]
