@@ -275,7 +275,10 @@
             color: curr.color, weight: 4, opacity: 0.9
           });
           seg.bindTooltip(
-            `<strong>${meta.name} (${meta.year})</strong><br>SID: ${sid}<br>Date: ${new Date(curr.time).toLocaleDateString()}<br>Wind: ${curr.wind} kt`,
+            `<strong>${meta.name} (${sid.substring(0,4)})</strong><br>` +
+            `SID: ${sid}<br>` +
+            `Date: ${new Date(curr.time).toLocaleDateString()}<br>` +
+            `Wind: ${curr.wind} kt`,
             { sticky: true }
           );
           group.addLayer(seg);
