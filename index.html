@@ -91,19 +91,16 @@
       const colorDict = {};
       barges.forEach((b, i) => colorDict[b] = colors[i % colors.length]);
 
-      // === PARSE STORM DATA (ANY FORMAT) ===
+      // === PARSE STORM POINTS ===
       let features = [];
       if (Array.isArray(stormJSON)) {
         features = stormJSON;
       } else if (stormJSON.features) {
         features = stormJSON.features;
-      } else if (stormJSON.points) {
-        features = [...stormJSON.points, ...(stormJSON.lines || [])];
       }
 
       const points = features.filter(f => f.geometry?.type === 'Point');
-      const lines = features.filter(f => f.geometry?.type === 'LineString');
-      console.log('Parsed → Points:', points.length, 'Lines:', lines.length);
+      console.log('Parsed Points:', points.length);
 
       // Process points
       points.forEach(f => {
@@ -121,17 +118,22 @@
       });
       Object.values(stormData.points).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
 
-      // Process lines
-      lines.forEach(f => {
-        const p = f.properties;
-        const name = p.name;
-        if (!stormData.lines[name]) stormData.lines[name] = [];
-        stormData.lines[name].push({
-          time: p.time,
-          coords: f.geometry.coordinates,
-          color: p.color
-        });
+      // === AUTO-GENERATE LINES FROM POINTS ===
+      Object.keys(stormData.points).forEach(name => {
+        const pts = stormData.points[name];
+        if (pts.length < 2) return;
+        stormData.lines[name] = [];
+        for (let i = 0; i < pts.length - 1; i++) {
+          const curr = pts[i];
+          const next = pts[i + 1];
+          stormData.lines[name].push({
+            time: next.time,
+            coords: [[curr.lon, curr.lat], [next.lon, next.lat]],
+            color: curr.color
+          });
+        }
       });
+      console.log('Generated lines for', Object.keys(stormData.lines).length, 'storms');
 
       // === TIME MERGING + CENTER MAP ===
       const allTimes = new Set();
@@ -249,15 +251,16 @@
         const points = stormData.points[name] || [];
         const lines = stormData.lines[name] || [];
 
+        // Find the MOST RECENT point ≤ current time
         const activePoint = points
           .filter(p => new Date(p.time) <= now)
           .sort((a, b) => new Date(b.time) - new Date(a.time))[0];
-        
 
+        // Build path from all line segments up to now
         const visibleLines = lines.filter(l => new Date(l.time) <= now);
         const pathCoords = visibleLines.flatMap(l => l.coords);
 
-        if (showStorms && activePoint && !hasFuture) {
+        if (showStorms && activePoint) {
           marker.setLatLng([activePoint.lat, activePoint.lon]).addTo(map);
           marker.setStyle({ fillColor: activePoint.color });
           marker.bindTooltip(`${name}<br>${activePoint.category}${activePoint.wind ? `<br>Wind: ${activePoint.wind} kt` : ''}`, {
