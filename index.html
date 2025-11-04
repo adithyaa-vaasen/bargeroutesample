@@ -18,7 +18,7 @@
 <body>
   <div class="header">
     <h2>Barge & Storm Tracker</h2>
-    <span>2015–2025 storms (SID-based) + barge routes | Intensity-colored tracks</span>
+    <span>2015–2025 storms + barge routes | Storms vanish when over</span>
   </div>
   <div class="controls">
     <button id="playPauseBtn">Play</button>
@@ -87,7 +87,7 @@
     function processData(bargeRaw = [], stormJSON = []) {
       console.log('Barge records:', Array.isArray(bargeRaw) ? bargeRaw.length : 0);
 
-      // === BARGE DATA (EXACTLY LIKE ORIGINAL) ===
+      // === BARGE DATA ===
       const processedBarge = (Array.isArray(bargeRaw) ? bargeRaw : [])
         .map(d => ({ ...d, Timestamp: new Date(d.Timestamp).toISOString() }))
         .filter(d => d.Latitude !== 0 && d.Longitude !== 0 && d.Latitude != null && d.Longitude != null)
@@ -97,7 +97,7 @@
       const colorDict = {};
       barges.forEach((b, i) => colorDict[b] = colors[i % colors.length]);
 
-      // === STORM DATA (SID-based) ===
+      // === STORM DATA ===
       const features = stormJSON.features || [];
       console.log('Storm features:', features.length);
 
@@ -121,7 +121,7 @@
       });
       Object.values(stormData.points).forEach(arr => arr.sort((a, b) => new Date(a.time) - new Date(b.time)));
 
-      // === REBASE STORMS TO 2027 ===
+      // === REBASE TO 2027 ===
       const rebaseYear = 2027;
       Object.keys(stormData.points).forEach(sid => {
         const firstYear = new Date(stormData.points[sid][0].time).getUTCFullYear();
@@ -139,7 +139,6 @@
       Object.values(stormData.points).flat().forEach(p => allTimes.add(p.time));
       uniqueTimes = Array.from(allTimes).sort();
 
-      // Add final cleanup time
       if (uniqueTimes.length > 0) {
         const last = new Date(uniqueTimes[uniqueTimes.length - 1]);
         last.setDate(last.getDate() + 1);
@@ -182,7 +181,6 @@
         bargePaths[b] = L.polyline([], { color: colorDict[b], weight: 3, opacity: 0.6 }).addTo(map);
       });
 
-      // === STORM GROUPS ===
       Object.keys(stormData.points).forEach(sid => {
         stormSegmentGroups[sid] = L.featureGroup().addTo(map);
       });
@@ -206,7 +204,7 @@
       const currentTime = uniqueTimes[timeIndex];
       const now = new Date(currentTime);
 
-      // === UPDATE BARGES (EXACT ORIGINAL LOGIC) ===
+      // === UPDATE BARGES ===
       Object.keys(bargeMarkers).forEach(barge => {
         const marker = bargeMarkers[barge];
         const path = bargePaths[barge];
@@ -230,7 +228,6 @@
           if (map.hasLayer(marker)) map.removeLayer(marker);
         }
 
-        // Update path
         if (selectedBarge === 'all' || selectedBarge === barge) {
           const history = currentData
             .filter(d => d['Barge Name'] === barge && new Date(d.Timestamp) <= now)
@@ -242,19 +239,25 @@
         }
       });
 
-      // === UPDATE STORMS ===
+      // === UPDATE STORMS (REMOVE WHEN OVER) ===
       const showStorms = document.getElementById('toggleStorms').checked;
       Object.keys(stormSegmentGroups).forEach(sid => {
         const group = stormSegmentGroups[sid];
         const points = stormData.points[sid] || [];
         const meta = stormData.metadata[sid];
-        const visible = points.filter(p => new Date(p.time) <= now);
+
+        const lastPointTime = points.length > 0 ? new Date(points[points.length - 1].time) : null;
+        const stormEnded = lastPointTime && now > lastPointTime;
 
         group.clearLayers();
-        if (!showStorms || visible.length < 2) return;
+
+        if (!showStorms || points.length < 2 || stormEnded) return;
+
+        const visible = points.filter(p => new Date(p.time) <= now);
+        if (visible.length < 2) return;
 
         for (let i = 0; i < visible.length - 1; i++) {
-          const curr = visible[i], next = visible[i+1];
+          const curr = visible[i], next = visible[i + 1];
           const seg = L.polyline([[curr.lat, curr.lon], [next.lat, next.lon]], {
             color: curr.color, weight: 4, opacity: 0.9
           });
@@ -299,7 +302,7 @@
       currentData = processedBarge;
       setupControls();
       updateMapForTime(0);
-      console.log('Tracker initialized: barges (exact logic) + SID storms');
+      console.log('Tracker ready: storms vanish when over');
     }).catch(err => {
       document.body.innerHTML += `<div style="color:red;padding:20px;">Error: ${err.message}</div>`;
     });
