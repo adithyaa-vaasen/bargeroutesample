@@ -65,19 +65,24 @@
     }).addTo(map);
     L.control.zoom({ position: 'topright' }).addTo(map);
 
-    // === DATA LOADING ===
+    // === DATA LOADING (ROBUST) ===
     function loadData() {
       return Promise.all([
-        fetch('/barge_data.json').then(r => r.json()).catch(() => []),
-        fetch('/storms_2027.json').then(r => r.json()).catch(() => ({ points: [], lines: [] }))
+        fetch('/barge_data.json')
+          .then(r => r.ok ? r.json() : [])
+          .catch(() => []),
+        fetch('/storms_2027.json')
+          .then(r => r.ok ? r.json() : { points: [], lines: [] })
+          .catch(() => ({ points: [], lines: [] }))
       ]);
     }
 
-    function processData(bargeRaw, stormJSON) {
-      console.log('Barge:', bargeRaw.length, 'Storm points:', stormJSON.points.length, 'lines:', stormJSON.lines.length);
+    function processData(bargeRaw = [], stormJSON = { points: [], lines: [] }) {
+      console.log('Barge:', Array.isArray(bargeRaw) ? bargeRaw.length : 0, 
+                  'Storm points:', stormJSON.points.length, 'lines:', stormJSON.lines.length);
 
       // === BARGE DATA ===
-      const processedBarge = bargeRaw
+      const processedBarge = (Array.isArray(bargeRaw) ? bargeRaw : [])
         .map(d => ({ ...d, Timestamp: new Date(d.Timestamp).toISOString() }))
         .filter(d => d.Latitude && d.Longitude && d.Latitude !== 0 && d.Longitude !== 0)
         .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
@@ -229,7 +234,7 @@
         const hasFuture = points.some(p => new Date(p.time) > now);
 
         const visibleLines = lines.filter(l => new Date(l.time) <= now);
-        const pathCoords = visibleLines.map(l => l.coords).flat();
+        const pathCoords = visibleLines.flatMap(l => l.coords);
 
         if (showStorms && activePoint && !hasFuture) {
           marker.setLatLng([activePoint.lat, activePoint.lon]).addTo(map);
